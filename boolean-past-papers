@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Chapter 10 — Boolean Logic (Verbatim markschemes & realistic SVG)</title>
+<title>Chapter 10 — Boolean Logic (questions visible, markscheme toggles)</title>
 <style>
   :root{
     --page-bg:#f4f6f8;
@@ -20,27 +20,19 @@
   header h1{margin:0 0 6px 0;font-size:1.25rem;}
   header p{margin:0 0 18px 0;color:var(--muted);}
 
-  /* Accordion */
-  .accordion{
-    display:block;
-    background: linear-gradient(180deg,var(--accent),var(--accent-2));
-    color:white;
-    border:none;
-    width:100%;
-    text-align:left;
-    padding:14px 16px;
-    border-radius:var(--radius);
-    margin-bottom:8px;
-    cursor:pointer;
-    box-shadow:0 3px 8px rgba(5,20,40,0.08);
-    font-weight:700;
-    line-height:1.15;
-  }
-  .accordion:focus{outline:3px solid rgba(0,74,153,0.18);}
+  /* Question card */
+  .qcard{background:var(--card-bg); border-radius:12px; padding:14px; margin-bottom:18px; box-shadow:0 2px 8px rgba(8,15,30,0.04); border:1px solid rgba(10,20,30,0.04);}
+  .qtitle{font-weight:700; color:var(--accent-2); margin:0 0 6px 0;}
+  .qtext{white-space:pre-wrap; margin:0 0 12px 0; line-height:1.45;}
+  .diagram-wrap{background:#fff; border-radius:8px; padding:8px; box-shadow:0 1px 4px rgba(8,15,30,0.03); margin-bottom:10px;}
+  .diagram-wrap svg{width:100%; height:auto; display:block; vector-effect: non-scaling-stroke;}
 
-  .panel{background:var(--card-bg);border-radius:0 0 var(--radius) var(--radius);margin:0 0 16px 0;overflow:hidden;border:1px solid rgba(15,23,36,0.06);max-height:0;transition:max-height .28s ease;}
-  .panel.open{max-height:2000px;}
-  .panel-content{padding:14px;line-height:1.5;}
+  /* markscheme button and panel */
+  .ms-toggle{display:inline-block; background:linear-gradient(180deg,var(--accent),var(--accent-2)); color:#fff; border:none; padding:10px 14px; border-radius:8px; cursor:pointer; font-weight:700; margin-bottom:8px;}
+  .ms-toggle:focus{outline:3px solid rgba(0,74,153,0.18);}
+  .ms-panel{overflow:hidden; max-height:0; transition:max-height .28s ease; border-top:1px dashed rgba(0,0,0,0.06); padding:0 0;}
+  .ms-open{max-height:2000px; padding-top:12px;}
+  .ms-content{padding:8px 0 14px 0; line-height:1.5;}
 
   pre.logic{margin:8px 0 12px 0;font-family:var(--mono);background:#f1f5f9;padding:8px;border-radius:6px;overflow:auto;font-size:0.98rem;}
 
@@ -49,15 +41,8 @@
   th,td{border:1px solid #e6eef6;padding:8px 10px;text-align:center;}
   th{background:#f8fafc;font-weight:700;}
 
-  .circuit{display:block;width:100%;max-width:820px;margin:12px 0;border-radius:8px;padding:8px;background:#fff;box-shadow:0 2px 6px rgba(10,20,30,0.03);}
-
-  /* compact SVG size for classroom - preserve aspect ratio so not squished */
-  svg.logic-diagram{width:100%; height:auto; display:block;}
-  svg.logic-diagram > g, svg.logic-diagram > path { vector-effect: non-scaling-stroke; }
-
   @media (max-width:520px){
     .wrap{padding:12px;}
-    svg.logic-diagram{height:auto;}
   }
 </style>
 </head>
@@ -65,122 +50,106 @@
   <div class="wrap">
     <header>
       <h1>Chapter 10 — Boolean Logic</h1>
-      <p>Click a question to reveal the full verbatim markscheme and diagram. (Source PDFs: Question booklet and Answer booklet.) :contentReference[oaicite:2]{index=2} :contentReference[oaicite:3]{index=3}</p>
+      <p>Each question below is shown in full (text + diagram). Click “Show markscheme” to reveal the answer and mark scheme for that question.</p>
     </header>
 
-    <!-- SVG gate defs (realistic gate shapes) -->
-    <svg width="0" height="0" style="position:absolute;left:-9999px" aria-hidden="true">
+    <!-- SVG gate defs -->
+    <svg width="0" height="0" style="position:absolute;left:-9999px" aria-hidden="true" focusable="false">
       <defs>
-        <g id="gate-and">
-          <rect x="0" y="0" width="80" height="48" rx="6" fill="#fff" stroke="#333" stroke-width="1.6"/>
-          <path d="M40,0 a40,24 0 0,1 0,48" fill="#fff" stroke="#333" stroke-width="1.6"/>
-        </g>
-        <g id="gate-or">
-          <path d="M0,6 C24,22 24,26 0,42 L28,42 C60,42 84,24 28,6 Z" fill="#fff" stroke="#333" stroke-width="1.6"/>
-          <path d="M-8,6 C12,22 12,26 -8,42" fill="none" stroke="#333" stroke-width="1.1"/>
-        </g>
-        <g id="gate-xor">
-          <path d="M-12,6 C12,22 12,26 -12,42" fill="none" stroke="#333" stroke-width="1.2"/>
-          <path d="M0,6 C24,22 24,26 0,42 L28,42 C60,42 84,24 28,6 Z" fill="#fff" stroke="#333" stroke-width="1.6"/>
-        </g>
-        <g id="gate-not">
-          <path d="M0,6 L36,24 L0,42 Z" fill="#fff" stroke="#333" stroke-width="1.6"/>
-          <circle cx="44" cy="24" r="6" fill="#fff" stroke="#333" stroke-width="1.6"/>
-        </g>
-        <g id="gate-nand">
-          <rect x="0" y="0" width="80" height="48" rx="6" fill="#fff" stroke="#333" stroke-width="1.6"/>
-          <path d="M40,0 a40,24 0 0,1 0,48" fill="#fff" stroke="#333" stroke-width="1.6"/>
-          <circle cx="96" cy="24" r="6" fill="#fff" stroke="#333" stroke-width="1.6"/>
-        </g>
-        <g id="gate-nor">
-          <path d="M0,6 C24,22 24,26 0,42 L28,42 C60,42 84,24 28,6 Z" fill="#fff" stroke="#333" stroke-width="1.6"/>
-          <path d="M-8,6 C12,22 12,26 -8,42" fill="none" stroke="#333" stroke-width="1.1"/>
-          <circle cx="92" cy="24" r="6" fill="#fff" stroke="#333" stroke-width="1.6"/>
-        </g>
+        <g id="gate-and"><rect x="0" y="0" width="90" height="56" rx="8" fill="#fff" stroke="#222" stroke-width="1.8"/><path d="M44,0 a44,28 0 0,1 0,56" fill="#fff" stroke="#222" stroke-width="1.8"/></g>
+        <g id="gate-or"><path d="M0,7 C28,26 28,30 0,49 L36,49 C76,49 106,29 36,7 Z" fill="#fff" stroke="#222" stroke-width="1.8"/><path d="M-10,7 C18,26 18,30 -10,49" fill="none" stroke="#222" stroke-width="1.1"/></g>
+        <g id="gate-xor"><path d="M-12,7 C18,26 18,30 -12,49" fill="none" stroke="#222" stroke-width="1.2"/><path d="M0,7 C28,26 28,30 0,49 L36,49 C76,49 106,29 36,7 Z" fill="#fff" stroke="#222" stroke-width="1.8"/></g>
+        <g id="gate-not"><path d="M0,6 L44,28 L0,50 Z" fill="#fff" stroke="#222" stroke-width="1.8"/><circle cx="54" cy="28" r="6" fill="#fff" stroke="#222" stroke-width="1.8"/></g>
+        <g id="gate-nand"><rect x="0" y="0" width="90" height="56" rx="8" fill="#fff" stroke="#222" stroke-width="1.8"/><path d="M44,0 a44,28 0 0,1 0,56" fill="#fff" stroke="#222" stroke-width="1.8"/><circle cx="110" cy="28" r="6" fill="#fff" stroke="#222" stroke-width="1.8"/></g>
+        <g id="gate-nor"><path d="M0,7 C28,26 28,30 0,49 L36,49 C76,49 106,29 36,7 Z" fill="#fff" stroke="#222" stroke-width="1.8"/><path d="M-10,7 C18,26 18,30 -10,49" fill="none" stroke="#222" stroke-width="1.1"/><circle cx="116" cy="28" r="6" fill="#fff" stroke="#222" stroke-width="1.8"/></g>
       </defs>
     </svg>
 
-    <!-- ========== Question 1 (verbatim from PDFs) ========== -->
-    <button class="accordion">Question 1</button>
-    <div class="panel"><div class="panel-content">
-      <!-- Verbatim question text from QbT/AbT -->
-      <pre style="white-space:pre-wrap;">
-<b>Question 1</b>
+    <!-- Question 1: question visible, markscheme hidden -->
+    <section class="qcard" id="q1">
+      <h2 class="qtitle">Question 1</h2>
+      <div class="qtext">
+<pre style="white-space:pre-wrap">
 Consider this logic circuit.
 (Image of logic circuit: (NOT A AND B) OR NOT C)
 
 (a) Write a logic expression for this logic circuit. Do not attempt to simplify this logic expression.
 X =
 (b) Complete the truth table from the given logic circuit.
-      </pre>
-
-      <b>Markscheme — Answer (a) (4 marks)</b>
-      <pre class="logic">X = (NOT A AND B) OR NOT C</pre>
-      <p>(One mark each for: NOT A, AND B, NOT C, OR)</p>
-
-      <b>Markscheme — Answer (b) (4 marks)</b>
-      <div class="table-wrap">
-        <table>
-          <tr><th>A</th><th>B</th><th>C</th><th>X</th></tr>
-          <tr><td>0</td><td>0</td><td>0</td><td>1</td></tr>
-          <tr><td>0</td><td>0</td><td>1</td><td>0</td></tr>
-          <tr><td>0</td><td>1</td><td>0</td><td>1</td></tr>
-          <tr><td>0</td><td>1</td><td>1</td><td>1</td></tr>
-          <tr><td>1</td><td>0</td><td>0</td><td>1</td></tr>
-          <tr><td>1</td><td>0</td><td>1</td><td>0</td></tr>
-          <tr><td>1</td><td>1</td><td>0</td><td>1</td></tr>
-          <tr><td>1</td><td>1</td><td>1</td><td>0</td></tr>
-        </table>
+</pre>
       </div>
 
-      <b>Diagram (realistic SVG)</b>
-      <div class="circuit">
-        <svg class="logic-diagram" viewBox="0 0 820 140" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Q1 diagram">
-          <!-- inputs -->
-          <text x="10" y="22" font-size="12">A</text>
-          <line x1="28" y1="20" x2="130" y2="20" stroke="#222" stroke-width="2"/>
-          <text x="10" y="52" font-size="12">B</text>
-          <line x1="28" y1="50" x2="130" y2="50" stroke="#222" stroke-width="2"/>
-          <text x="10" y="82" font-size="12">C</text>
-          <line x1="28" y1="80" x2="130" y2="80" stroke="#222" stroke-width="2"/>
+      <div class="diagram-wrap" aria-hidden="false">
+        <!-- Wider canvas and spaced gate positions to prevent squashing -->
+        <svg class="logic-diagram" viewBox="0 0 1000 160" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Q1 diagram">
+          <!-- labels + rails -->
+          <text x="10" y="24" font-size="12">A</text>
+          <line x1="34" y1="22" x2="220" y2="22" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+          <text x="10" y="54" font-size="12">B</text>
+          <line x1="34" y1="52" x2="220" y2="52" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+          <text x="10" y="84" font-size="12">C</text>
+          <line x1="34" y1="82" x2="220" y2="82" stroke="#222" stroke-width="2" stroke-linecap="round"/>
 
           <!-- NOT A -->
-          <g transform="translate(130,6)">
+          <g transform="translate(220,6)">
             <use href="#gate-not"></use>
-            <line x1="50" y1="24" x2="160" y2="24" stroke="#222" stroke-width="2"/>
+            <line x1="62" y1="28" x2="350" y2="28" stroke="#222" stroke-width="2" stroke-linecap="round"/>
           </g>
 
-          <!-- AND (NOT A, B) -->
-          <line x1="130" y1="50" x2="210" y2="34" stroke="#222" stroke-width="2"/>
-          <g transform="translate(160,18)">
+          <!-- AND combining NOT A + B -->
+          <!-- B feeds up to AND with small offset -->
+          <line x1="220" y1="52" x2="280" y2="40" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+          <g transform="translate(300,24)">
             <use href="#gate-and"></use>
-            <line x1="92" y1="24" x2="260" y2="24" stroke="#222" stroke-width="2"/>
+            <line x1="96" y1="28" x2="480" y2="28" stroke="#222" stroke-width="2" stroke-linecap="round"/>
           </g>
 
           <!-- NOT C -->
-          <g transform="translate(130,68)">
+          <g transform="translate(220,92)">
             <use href="#gate-not"></use>
-            <line x1="50" y1="24" x2="300" y2="24" stroke="#222" stroke-width="2"/>
+            <line x1="62" y1="28" x2="480" y2="28" stroke="#222" stroke-width="2" stroke-linecap="round"/>
           </g>
 
-          <!-- OR gate combining AND output and NOT C -->
-          <line x1="260" y1="24" x2="340" y2="24" stroke="#222" stroke-width="2"/>
-          <line x1="300" y1="24" x2="340" y2="24" stroke="#222" stroke-width="2"/>
-          <g transform="translate(340,20)">
-            <use href="#gate-or"></use>
-            <line x1="96" y1="24" x2="760" y2="24" stroke="#222" stroke-width="2"/>
-          </g>
-
-          <text x="740" y="30" font-size="13">X</text>
+          <!-- OR to combine AND output and NOT C -->
+          <line x1="480" y1="28" x2="540" y2="28" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+          <line x1="480" y1="28" x2="540" y2="48" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+          <g transform="translate(540,16)"><use href="#gate-or"></use></g>
+          <line x1="640" y1="32" x2="960" y2="32" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+          <text x="940" y="38" font-size="13">X</text>
         </svg>
       </div>
-    </div></div>
 
-    <!-- ========== Question 2 (verbatim) ========== -->
-    <button class="accordion">Question 2</button>
-    <div class="panel"><div class="panel-content">
-      <pre style="white-space:pre-wrap;">
-<b>Question 2</b>
+      <button class="ms-toggle" aria-controls="ms1" aria-expanded="false">Show markscheme</button>
+      <div id="ms1" class="ms-panel" aria-hidden="true">
+        <div class="ms-content">
+          <!-- Verbatim markscheme -->
+          <b>Answer (a) (4 marks)</b>
+          <pre class="logic">X = (NOT A AND B) OR NOT C</pre>
+          <p>(One mark each for: NOT A, AND B, NOT C, OR)</p>
+
+          <b>Answer (b) (4 marks)</b>
+          <div class="table-wrap">
+            <table>
+              <tr><th>A</th><th>B</th><th>C</th><th>X</th></tr>
+              <tr><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+              <tr><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+              <tr><td>0</td><td>1</td><td>0</td><td>1</td></tr>
+              <tr><td>0</td><td>1</td><td>1</td><td>1</td></tr>
+              <tr><td>1</td><td>0</td><td>0</td><td>1</td></tr>
+              <tr><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+              <tr><td>1</td><td>1</td><td>0</td><td>1</td></tr>
+              <tr><td>1</td><td>1</td><td>1</td><td>0</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Question 2 -->
+    <section class="qcard" id="q2">
+      <h2 class="qtitle">Question 2</h2>
+      <div class="qtext">
+<pre style="white-space:pre-wrap">
 Consider the logic expression:
 Z = (A NAND B) OR NOT (B XOR C)
 
@@ -189,129 +158,128 @@ Each logic gate must have a maximum of two inputs.
 Do not simplify this logic expression.
 
 (b) Complete the truth table from the given logic expression.
-      </pre>
-
-      <b>Markscheme — Answer (a) (4 marks)</b>
-      <p><i>(Mark scheme shows the correct logic circuit diagram with NAND, XOR, NOT, and OR gates.)</i></p>
-
-      <b>Markscheme — Answer (b) (4 marks)</b>
-      <div class="table-wrap">
-        <table>
-          <tr><th>A</th><th>B</th><th>C</th><th>Z</th></tr>
-          <tr><td>0</td><td>0</td><td>0</td><td>1</td></tr>
-          <tr><td>0</td><td>0</td><td>1</td><td>1</td></tr>
-          <tr><td>0</td><td>1</td><td>0</td><td>1</td></tr>
-          <tr><td>0</td><td>1</td><td>1</td><td>1</td></tr>
-          <tr><td>1</td><td>0</td><td>0</td><td>1</td></tr>
-          <tr><td>1</td><td>0</td><td>1</td><td>1</td></tr>
-          <tr><td>1</td><td>1</td><td>0</td><td>1</td></tr>
-          <tr><td>1</td><td>1</td><td>1</td><td>1</td></tr>
-        </table>
+</pre>
       </div>
 
-      <div class="circuit">
-        <svg class="logic-diagram" viewBox="0 0 920 140" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Q2 diagram">
-          <text x="10" y="22" font-size="12">A</text>
-          <line x1="28" y1="20" x2="130" y2="20" stroke="#222" stroke-width="2"/>
-          <text x="10" y="52" font-size="12">B</text>
-          <line x1="28" y1="50" x2="130" y2="50" stroke="#222" stroke-width="2"/>
-          <text x="10" y="82" font-size="12">C</text>
-          <line x1="28" y1="80" x2="130" y2="80" stroke="#222" stroke-width="2"/>
+      <div class="diagram-wrap">
+        <svg class="logic-diagram" viewBox="0 0 1040 160" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Q2 diagram">
+          <text x="10" y="24" font-size="12">A</text>
+          <line x1="34" y1="22" x2="220" y2="22" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+          <text x="10" y="54" font-size="12">B</text>
+          <line x1="34" y1="52" x2="220" y2="52" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+          <text x="10" y="84" font-size="12">C</text>
+          <line x1="34" y1="82" x2="220" y2="82" stroke="#222" stroke-width="2" stroke-linecap="round"/>
 
-          <!-- NAND for A,B -->
-          <g transform="translate(130,6)">
-            <use href="#gate-nand"></use>
-            <line x1="104" y1="24" x2="300" y2="24" stroke="#222" stroke-width="2"/>
-          </g>
+          <!-- NAND A,B -->
+          <g transform="translate(220,6)"><use href="#gate-nand"></use></g>
+          <line x1="310" y1="34" x2="520" y2="34" stroke="#222" stroke-width="2" stroke-linecap="round"/>
 
-          <!-- XOR for B,C -->
-          <line x1="130" y1="50" x2="360" y2="30" stroke="#222" stroke-width="2"/>
-          <line x1="130" y1="80" x2="360" y2="60" stroke="#222" stroke-width="2"/>
-          <g transform="translate(360,8)">
-            <use href="#gate-xor"></use>
-            <line x1="84" y1="24" x2="520" y2="24" stroke="#222" stroke-width="2"/>
-          </g>
+          <!-- XOR B,C -->
+          <line x1="220" y1="52" x2="420" y2="34" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+          <line x1="220" y1="82" x2="420" y2="54" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+          <g transform="translate(420,8)"><use href="#gate-xor"></use></g>
+          <line x1="506" y1="34" x2="660" y2="34" stroke="#222" stroke-width="2" stroke-linecap="round"/>
 
           <!-- NOT after XOR -->
-          <g transform="translate(520,8)">
-            <use href="#gate-not"></use>
-            <line x1="50" y1="24" x2="640" y2="24" stroke="#222" stroke-width="2"/>
-          </g>
+          <g transform="translate(660,8)"><use href="#gate-not"></use></g>
+          <line x1="724" y1="34" x2="820" y2="34" stroke="#222" stroke-width="2" stroke-linecap="round"/>
 
-          <!-- OR combining NAND and NOT(XOR) -->
-          <line x1="300" y1="24" x2="640" y2="24" stroke="#222" stroke-width="2"/>
-          <g transform="translate(640,16)">
-            <use href="#gate-or"></use>
-            <line x1="96" y1="24" x2="880" y2="24" stroke="#222" stroke-width="2"/>
-          </g>
-
-          <text x="860" y="30" font-size="13">Z</text>
+          <!-- OR combining -->
+          <line x1="520" y1="34" x2="820" y2="34" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+          <g transform="translate(820,16)"><use href="#gate-or"></use></g>
+          <line x1="920" y1="36" x2="980" y2="36" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+          <text x="968" y="42" font-size="13">Z</text>
         </svg>
       </div>
-    </div></div>
 
-    <!-- ========== Question 3 (verbatim) ========== -->
-    <button class="accordion">Question 3</button>
-    <div class="panel"><div class="panel-content">
-      <pre style="white-space:pre-wrap;">
-<b>Question 3</b>
+      <button class="ms-toggle" aria-controls="ms2" aria-expanded="false">Show markscheme</button>
+      <div id="ms2" class="ms-panel" aria-hidden="true">
+        <div class="ms-content">
+          <b>Answer (a) (4 marks)</b>
+          <p><i>(Mark scheme shows the correct logic circuit diagram with NAND, XOR, NOT, and OR gates.)</i></p>
+
+          <b>Answer (b) (4 marks)</b>
+          <div class="table-wrap">
+            <table>
+              <tr><th>A</th><th>B</th><th>C</th><th>Z</th></tr>
+              <tr><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+              <tr><td>0</td><td>0</td><td>1</td><td>1</td></tr>
+              <tr><td>0</td><td>1</td><td>0</td><td>1</td></tr>
+              <tr><td>0</td><td>1</td><td>1</td><td>1</td></tr>
+              <tr><td>1</td><td>0</td><td>0</td><td>1</td></tr>
+              <tr><td>1</td><td>0</td><td>1</td><td>1</td></tr>
+              <tr><td>1</td><td>1</td><td>0</td><td>1</td></tr>
+              <tr><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Question 3 -->
+    <section class="qcard" id="q3">
+      <h2 class="qtitle">Question 3</h2>
+      <div class="qtext">
+<pre style="white-space:pre-wrap">
 Consider this logic circuit.
 (Image of logic circuit: (A XOR B) AND C)
 
 (a) Write a logic expression for this logic circuit. Do not attempt to simplify this logic expression.
 X =
 (b) Complete the truth table from the given logic circuit.
-      </pre>
-
-      <b>Markscheme — Answer (a) (3 marks)</b>
-      <pre class="logic">X = (A XOR B) AND C</pre>
-
-      <b>Markscheme — Answer (b) (4 marks)</b>
-      <div class="table-wrap">
-        <table>
-          <tr><th>A</th><th>B</th><th>C</th><th>X</th></tr>
-          <tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-          <tr><td>0</td><td>0</td><td>1</td><td>0</td></tr>
-          <tr><td>0</td><td>1</td><td>0</td><td>0</td></tr>
-          <tr><td>0</td><td>1</td><td>1</td><td>1</td></tr>
-          <tr><td>1</td><td>0</td><td>0</td><td>0</td></tr>
-          <tr><td>1</td><td>0</td><td>1</td><td>1</td></tr>
-          <tr><td>1</td><td>1</td><td>0</td><td>0</td></tr>
-          <tr><td>1</td><td>1</td><td>1</td><td>0</td></tr>
-        </table>
+</pre>
       </div>
 
-      <div class="circuit">
-        <svg class="logic-diagram" viewBox="0 0 820 140" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Q3 diagram">
-          <text x="10" y="22" font-size="12">A</text>
-          <line x1="28" y1="20" x2="200" y2="20" stroke="#222" stroke-width="2"/>
-          <text x="10" y="52" font-size="12">B</text>
-          <line x1="28" y1="50" x2="200" y2="50" stroke="#222" stroke-width="2"/>
-          <text x="10" y="82" font-size="12">C</text>
-          <line x1="28" y1="80" x2="460" y2="80" stroke="#222" stroke-width="2"/>
+      <div class="diagram-wrap">
+        <svg class="logic-diagram" viewBox="0 0 940 160" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Q3 diagram">
+          <text x="10" y="24" font-size="12">A</text>
+          <line x1="34" y1="22" x2="260" y2="22" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+          <text x="10" y="54" font-size="12">B</text>
+          <line x1="34" y1="52" x2="260" y2="52" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+          <text x="10" y="84" font-size="12">C</text>
+          <line x1="34" y1="82" x2="540" y2="82" stroke="#222" stroke-width="2" stroke-linecap="round"/>
 
-          <g transform="translate(200,8)">
-            <use href="#gate-xor"></use>
-            <line x1="84" y1="24" x2="420" y2="24" stroke="#222" stroke-width="2"/>
-          </g>
+          <g transform="translate(260,8)"><use href="#gate-xor"></use></g>
+          <line x1="350" y1="34" x2="540" y2="34" stroke="#222" stroke-width="2" stroke-linecap="round"/>
 
-          <g transform="translate(420,16)">
-            <use href="#gate-and"></use>
-            <line x1="96" y1="24" x2="760" y2="24" stroke="#222" stroke-width="2"/>
-          </g>
+          <g transform="translate(540,16)"><use href="#gate-and"></use></g>
+          <line x1="636" y1="44" x2="900" y2="44" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+          <text x="880" y="50" font-size="13">X</text>
 
-          <line x1="460" y1="80" x2="420" y2="42" stroke="#222" stroke-width="2"/>
-
-          <text x="740" y="30" font-size="13">X</text>
+          <!-- C to AND -->
+          <line x1="540" y1="82" x2="540" y2="48" stroke="#222" stroke-width="2" stroke-linecap="round"/>
         </svg>
       </div>
-    </div></div>
 
-    <!-- ========== Question 4 (verbatim) ========== -->
-    <button class="accordion">Question 4</button>
-    <div class="panel"><div class="panel-content">
-      <pre style="white-space:pre-wrap;">
-<b>Question 4</b>
+      <button class="ms-toggle" aria-controls="ms3" aria-expanded="false">Show markscheme</button>
+      <div id="ms3" class="ms-panel" aria-hidden="true">
+        <div class="ms-content">
+          <b>Answer (a) (3 marks)</b>
+          <pre class="logic">X = (A XOR B) AND C</pre>
+
+          <b>Answer (b) (4 marks)</b>
+          <div class="table-wrap">
+            <table>
+              <tr><th>A</th><th>B</th><th>C</th><th>X</th></tr>
+              <tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+              <tr><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+              <tr><td>0</td><td>1</td><td>0</td><td>0</td></tr>
+              <tr><td>0</td><td>1</td><td>1</td><td>1</td></tr>
+              <tr><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+              <tr><td>1</td><td>0</td><td>1</td><td>1</td></tr>
+              <tr><td>1</td><td>1</td><td>0</td><td>0</td></tr>
+              <tr><td>1</td><td>1</td><td>1</td><td>0</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Question 4 -->
+    <section class="qcard" id="q4">
+      <h2 class="qtitle">Question 4</h2>
+      <div class="qtext">
+<pre style="white-space:pre-wrap">
 Consider this logic expression.
 X = (A OR B) AND (NOT B OR C)
 
@@ -319,175 +287,187 @@ X = (A OR B) AND (NOT B OR C)
 inputs. Do not simplify this logic expression.
 
 (b) Complete the truth table from the given logic expression.
-      </pre>
-
-      <b>Markscheme — Answer (a) (5 marks)</b>
-      <p><i>(Mark scheme shows the correct logic circuit diagram with OR, NOT, OR, and AND gates.)</i></p>
-
-      <b>Markscheme — Answer (b) (4 marks)</b>
-      <div class="table-wrap">
-        <table>
-          <tr><th>A</th><th>B</th><th>C</th><th>X</th></tr>
-          <tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-          <tr><td>0</td><td>0</td><td>1</td><td>0</td></tr>
-          <tr><td>0</td><td>1</td><td>0</td><td>0</td></tr>
-          <tr><td>0</td><td>1</td><td>1</td><td>1</td></tr>
-          <tr><td>1</td><td>0</td><td>0</td><td>1</td></tr>
-          <tr><td>1</td><td>0</td><td>1</td><td>1</td></tr>
-          <tr><td>1</td><td>1</td><td>0</td><td>0</td></tr>
-          <tr><td>1</td><td>1</td><td>1</td><td>1</td></tr>
-        </table>
+</pre>
       </div>
 
-      <div class="circuit">
-        <svg class="logic-diagram" viewBox="0 0 920 160" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Q4 diagram">
-          <text x="10" y="22" font-size="12">A</text>
-          <line x1="28" y1="20" x2="160" y2="20" stroke="#222" stroke-width="2"/>
-          <text x="10" y="52" font-size="12">B</text>
-          <line x1="28" y1="50" x2="160" y2="50" stroke="#222" stroke-width="2"/>
-          <text x="10" y="82" font-size="12">C</text>
-          <line x1="28" y1="80" x2="540" y2="80" stroke="#222" stroke-width="2"/>
+      <div class="diagram-wrap">
+        <svg class="logic-diagram" viewBox="0 0 980 180" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Q4 diagram">
+          <text x="10" y="24" font-size="12">A</text>
+          <line x1="34" y1="22" x2="200" y2="22" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+          <text x="10" y="54" font-size="12">B</text>
+          <line x1="34" y1="52" x2="200" y2="52" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+          <text x="10" y="84" font-size="12">C</text>
+          <line x1="34" y1="82" x2="520" y2="82" stroke="#222" stroke-width="2" stroke-linecap="round"/>
 
-          <!-- OR for (A OR B) -->
-          <g transform="translate(160,8)"><use href="#gate-or"></use></g>
-          <line x1="256" y1="28" x2="420" y2="28" stroke="#222" stroke-width="2"/>
+          <!-- OR (A OR B) -->
+          <g transform="translate(200,8)"><use href="#gate-or"></use></g>
+          <line x1="258" y1="36" x2="420" y2="36" stroke="#222" stroke-width="2" stroke-linecap="round"/>
 
           <!-- NOT B -->
-          <g transform="translate(160,56)"><use href="#gate-not"></use></g>
-          <line x1="210" y1="80" x2="420" y2="40" stroke="#222" stroke-width="2"/>
+          <g transform="translate(200,72)"><use href="#gate-not"></use></g>
+          <line x1="246" y1="96" x2="420" y2="52" stroke="#222" stroke-width="2" stroke-linecap="round"/>
 
-          <!-- OR for (NOT B OR C) -->
-          <line x1="540" y1="80" x2="420" y2="40" stroke="#222" stroke-width="2"/>
-          <g transform="translate(420,16)"><use href="#gate-or"></use></g>
-          <line x1="516" y1="40" x2="640" y2="40" stroke="#222" stroke-width="2"/>
+          <!-- OR (NOT B OR C) -->
+          <line x1="520" y1="82" x2="420" y2="52" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+          <g transform="translate(420,36)"><use href="#gate-or"></use></g>
+          <line x1="476" y1="60" x2="620" y2="60" stroke="#222" stroke-width="2" stroke-linecap="round"/>
 
           <!-- AND final -->
-          <g transform="translate(640,16)"><use href="#gate-and"></use></g>
-          <line x1="736" y1="40" x2="880" y2="40" stroke="#222" stroke-width="2"/>
-
-          <text x="840" y="48" font-size="13">X</text>
+          <g transform="translate(620,44)"><use href="#gate-and"></use></g>
+          <line x1="716" y1="66" x2="920" y2="66" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+          <text x="900" y="72" font-size="13">X</text>
         </svg>
       </div>
-    </div></div>
 
-    <!-- ========== Question 5 (verbatim) ========== -->
-    <button class="accordion">Question 5</button>
-    <div class="panel"><div class="panel-content">
-      <pre style="white-space:pre-wrap;">
-<b>Question 5</b>
+      <button class="ms-toggle" aria-controls="ms4" aria-expanded="false">Show markscheme</button>
+      <div id="ms4" class="ms-panel" aria-hidden="true">
+        <div class="ms-content">
+          <p><i>(Mark scheme shows the correct logic circuit diagram with OR, NOT, OR and AND gates.)</i></p>
+          <div class="table-wrap">
+            <table>
+              <tr><th>A</th><th>B</th><th>C</th><th>X</th></tr>
+              <tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+              <tr><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+              <tr><td>0</td><td>1</td><td>0</td><td>0</td></tr>
+              <tr><td>0</td><td>1</td><td>1</td><td>1</td></tr>
+              <tr><td>1</td><td>0</td><td>0</td><td>1</td></tr>
+              <tr><td>1</td><td>0</td><td>1</td><td>1</td></tr>
+              <tr><td>1</td><td>1</td><td>0</td><td>0</td></tr>
+              <tr><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Question 5 -->
+    <section class="qcard" id="q5">
+      <h2 class="qtitle">Question 5</h2>
+      <div class="qtext">
+<pre style="white-space:pre-wrap">
 Consider this logic circuit.
 (Image of logic circuit: (A NOR B) OR (B AND C))
 
 (a) Write a logic expression for this logic circuit. Do not attempt to simplify this logic expression.
 X =
 (b) Complete the truth table from the given logic circuit.
-      </pre>
-
-      <b>Markscheme — Answer (a) (3 marks)</b>
-      <pre class="logic">X = (A NOR B) OR (B AND C)</pre>
-
-      <b>Markscheme — Answer (b) (4 marks)</b>
-      <div class="table-wrap">
-        <table>
-          <tr><th>A</th><th>B</th><th>C</th><th>X</th></tr>
-          <tr><td>0</td><td>0</td><td>0</td><td>1</td></tr>
-          <tr><td>0</td><td>0</td><td>1</td><td>1</td></tr>
-          <tr><td>0</td><td>1</td><td>0</td><td>0</td></tr>
-          <tr><td>0</td><td>1</td><td>1</td><td>1</td></tr>
-          <tr><td>1</td><td>0</td><td>0</td><td>0</td></tr>
-          <tr><td>1</td><td>0</td><td>1</td><td>0</td></tr>
-          <tr><td>1</td><td>1</td><td>0</td><td>0</td></tr>
-          <tr><td>1</td><td>1</td><td>1</td><td>1</td></tr>
-        </table>
+</pre>
       </div>
 
-      <div class="circuit">
-        <svg class="logic-diagram" viewBox="0 0 920 140" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Q5 diagram">
-          <text x="10" y="22" font-size="12">A</text>
-          <line x1="28" y1="20" x2="160" y2="20" stroke="#222" stroke-width="2"/>
-          <text x="10" y="52" font-size="12">B</text>
-          <line x1="28" y1="50" x2="160" y2="50" stroke="#222" stroke-width="2"/>
-          <text x="10" y="82" font-size="12">C</text>
-          <line x1="28" y1="80" x2="520" y2="80" stroke="#222" stroke-width="2"/>
+      <div class="diagram-wrap">
+        <svg class="logic-diagram" viewBox="0 0 980 160" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Q5 diagram">
+          <text x="10" y="24" font-size="12">A</text>
+          <line x1="34" y1="22" x2="200" y2="22" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+          <text x="10" y="54" font-size="12">B</text>
+          <line x1="34" y1="52" x2="200" y2="52" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+          <text x="10" y="84" font-size="12">C</text>
+          <line x1="34" y1="82" x2="520" y2="82" stroke="#222" stroke-width="2" stroke-linecap="round"/>
 
-          <!-- NOR for (A NOR B) -->
-          <g transform="translate(160,8)"><use href="#gate-nor"></use></g>
-          <line x1="248" y1="32" x2="420" y2="32" stroke="#222" stroke-width="2"/>
+          <!-- NOR A,B -->
+          <g transform="translate(200,8)"><use href="#gate-nor"></use></g>
+          <line x1="298" y1="36" x2="460" y2="36" stroke="#222" stroke-width="2" stroke-linecap="round"/>
 
-          <!-- AND for (B AND C) -->
-          <line x1="160" y1="50" x2="420" y2="40" stroke="#222" stroke-width="2"/>
-          <line x1="520" y1="80" x2="480" y2="44" stroke="#222" stroke-width="2"/>
-          <g transform="translate(420,16)"><use href="#gate-and"></use></g>
-          <line x1="516" y1="40" x2="640" y2="40" stroke="#222" stroke-width="2"/>
+          <!-- AND B,C -->
+          <line x1="200" y1="52" x2="420" y2="38" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+          <line x1="520" y1="82" x2="460" y2="46" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+          <g transform="translate(460,28)"><use href="#gate-and"></use></g>
+          <line x1="556" y1="46" x2="640" y2="46" stroke="#222" stroke-width="2" stroke-linecap="round"/>
 
-          <!-- OR combining -->
-          <line x1="420" y1="32" x2="640" y2="32" stroke="#222" stroke-width="2"/>
-          <g transform="translate(640,16)"><use href="#gate-or"></use></g>
-          <line x1="736" y1="40" x2="880" y2="40" stroke="#222" stroke-width="2"/>
-
-          <text x="840" y="48" font-size="13">X</text>
+          <!-- OR combine -->
+          <line x1="460" y1="36" x2="640" y2="36" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+          <g transform="translate(640,24)"><use href="#gate-or"></use></g>
+          <line x1="720" y1="44" x2="920" y2="44" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+          <text x="900" y="50" font-size="13">X</text>
         </svg>
       </div>
-    </div></div>
 
-    <!-- ========== Question 6 (verbatim) ========== -->
-    <button class="accordion">Question 6</button>
-    <div class="panel"><div class="panel-content">
-      <pre style="white-space:pre-wrap;">
-<b>Question 6</b>
+      <button class="ms-toggle" aria-controls="ms5" aria-expanded="false">Show markscheme</button>
+      <div id="ms5" class="ms-panel" aria-hidden="true">
+        <div class="ms-content">
+          <b>Answer (a) (3 marks)</b>
+          <pre class="logic">X = (A NOR B) OR (B AND C)</pre>
+
+          <b>Answer (b) (4 marks)</b>
+          <div class="table-wrap">
+            <table>
+              <tr><th>A</th><th>B</th><th>C</th><th>X</th></tr>
+              <tr><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+              <tr><td>0</td><td>0</td><td>1</td><td>1</td></tr>
+              <tr><td>0</td><td>1</td><td>0</td><td>0</td></tr>
+              <tr><td>0</td><td>1</td><td>1</td><td>1</td></tr>
+              <tr><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+              <tr><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+              <tr><td>1</td><td>1</td><td>0</td><td>0</td></tr>
+              <tr><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Question 6 -->
+    <section class="qcard" id="q6">
+      <h2 class="qtitle">Question 6</h2>
+      <div class="qtext">
+<pre style="white-space:pre-wrap">
 Consider this logic circuit.
 (Image of logic circuit: (A OR B) AND (B XOR C))
 
 (a) Complete the truth table from the given logic circuit.
-      </pre>
-
-      <b>Markscheme — Answer (a)</b>
-      <pre class="logic">X = (A OR B) AND (B XOR C)</pre>
-
-      <b>Markscheme — Answer (b) (4 marks)</b>
-      <div class="table-wrap">
-        <table>
-          <tr><th>A</th><th>B</th><th>C</th><th>X</th></tr>
-          <tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-          <tr><td>0</td><td>0</td><td>1</td><td>0</td></tr>
-          <tr><td>0</td><td>1</td><td>0</td><td>1</td></tr>
-          <tr><td>0</td><td>1</td><td>1</td><td>0</td></tr>
-          <tr><td>1</td><td>0</td><td>0</td><td>0</td></tr>
-          <tr><td>1</td><td>0</td><td>1</td><td>1</td></tr>
-          <tr><td>1</td><td>1</td><td>0</td><td>1</td></tr>
-          <tr><td>1</td><td>1</td><td>1</td><td>0</td></tr>
-        </table>
+</pre>
       </div>
 
-      <div class="circuit">
-        <svg class="logic-diagram" viewBox="0 0 920 140" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Q6 diagram">
-          <text x="10" y="22" font-size="12">A</text>
-          <line x1="28" y1="20" x2="160" y2="20" stroke="#222" stroke-width="2"/>
-          <text x="10" y="52" font-size="12">B</text>
-          <line x1="28" y1="50" x2="160" y2="50" stroke="#222" stroke-width="2"/>
-          <text x="10" y="82" font-size="12">C</text>
-          <line x1="28" y1="80" x2="360" y2="80" stroke="#222" stroke-width="2"/>
+      <div class="diagram-wrap">
+        <svg class="logic-diagram" viewBox="0 0 980 160" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Q6 diagram">
+          <text x="10" y="24" font-size="12">A</text>
+          <line x1="34" y1="22" x2="200" y2="22" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+          <text x="10" y="54" font-size="12">B</text>
+          <line x1="34" y1="52" x2="200" y2="52" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+          <text x="10" y="84" font-size="12">C</text>
+          <line x1="34" y1="82" x2="360" y2="82" stroke="#222" stroke-width="2" stroke-linecap="round"/>
 
-          <g transform="translate(160,8)"><use href="#gate-or"></use></g>
-          <line x1="256" y1="28" x2="520" y2="28" stroke="#222" stroke-width="2"/>
+          <g transform="translate(200,8)"><use href="#gate-or"></use></g>
+          <line x1="276" y1="36" x2="520" y2="36" stroke="#222" stroke-width="2" stroke-linecap="round"/>
 
-          <line x1="160" y1="50" x2="320" y2="34" stroke="#222" stroke-width="2"/>
-          <line x1="360" y1="80" x2="320" y2="60" stroke="#222" stroke-width="2"/>
+          <line x1="200" y1="52" x2="320" y2="36" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+          <line x1="360" y1="82" x2="320" y2="56" stroke="#222" stroke-width="2" stroke-linecap="round"/>
           <g transform="translate(320,8)"><use href="#gate-xor"></use></g>
-          <line x1="404" y1="28" x2="520" y2="28" stroke="#222" stroke-width="2"/>
+          <line x1="404" y1="36" x2="520" y2="36" stroke="#222" stroke-width="2" stroke-linecap="round"/>
 
-          <g transform="translate(520,16)"><use href="#gate-and"></use></g>
-          <line x1="616" y1="40" x2="880" y2="40" stroke="#222" stroke-width="2"/>
-          <text x="840" y="48" font-size="13">X</text>
+          <g transform="translate(520,24)"><use href="#gate-and"></use></g>
+          <line x1="616" y1="56" x2="920" y2="56" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+          <text x="900" y="62" font-size="13">X</text>
         </svg>
       </div>
-    </div></div>
 
-    <!-- ========== Question 9 (verbatim) ========== -->
-    <button class="accordion">Question 9</button>
-    <div class="panel"><div class="panel-content">
-      <pre style="white-space:pre-wrap;">
-<b>Question 9</b>
+      <button class="ms-toggle" aria-controls="ms6" aria-expanded="false">Show markscheme</button>
+      <div id="ms6" class="ms-panel" aria-hidden="true">
+        <div class="ms-content">
+          <b>Answer (a)</b>
+          <pre class="logic">X = (A OR B) AND (B XOR C)</pre>
+          <b>Answer (b) (4 marks)</b>
+          <div class="table-wrap">
+            <table>
+              <tr><th>A</th><th>B</th><th>C</th><th>X</th></tr>
+              <tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+              <tr><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+              <tr><td>0</td><td>1</td><td>0</td><td>1</td></tr>
+              <tr><td>0</td><td>1</td><td>1</td><td>0</td></tr>
+              <tr><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+              <tr><td>1</td><td>0</td><td>1</td><td>1</td></tr>
+              <tr><td>1</td><td>1</td><td>0</td><td>1</td></tr>
+              <tr><td>1</td><td>1</td><td>1</td><td>0</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Question 9 -->
+    <section class="qcard" id="q9">
+      <h2 class="qtitle">Question 9</h2>
+      <div class="qtext">
+<pre style="white-space:pre-wrap">
 (Mapped from QbT Q9 to AbT Q9)
 Consider this logic expression.
 X = (A XOR B) OR (B AND C)
@@ -496,93 +476,85 @@ X = (A XOR B) OR (B AND C)
 inputs. Do not simplify this logic expression.
 
 (b) Complete the truth table from the given logic expression.
-      </pre>
-
-      <b>Markscheme — Answer (a) (4 marks)</b>
-      <p><i>(Mark scheme shows the correct logic circuit diagram with XOR, AND and OR gates.)</i></p>
-
-      <b>Markscheme — Answer (b) (4 marks)</b>
-      <div class="table-wrap">
-        <table>
-          <tr><th>A</th><th>B</th><th>C</th><th>X</th></tr>
-          <tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
-          <tr><td>0</td><td>0</td><td>1</td><td>0</td></tr>
-          <tr><td>0</td><td>1</td><td>0</td><td>1</td></tr>
-          <tr><td>0</td><td>1</td><td>1</td><td>1</td></tr>
-          <tr><td>1</td><td>0</td><td>0</td><td>1</td></tr>
-          <tr><td>1</td><td>0</td><td>1</td><td>1</td></tr>
-          <tr><td>1</td><td>1</td><td>0</td><td>0</td></tr>
-          <tr><td>1</td><td>1</td><td>1</td><td>1</td></tr>
-        </table>
+</pre>
       </div>
 
-      <div class="circuit">
-        <svg class="logic-diagram" viewBox="0 0 920 140" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Q9 diagram">
-          <text x="10" y="22" font-size="12">A</text>
-          <line x1="28" y1="20" x2="200" y2="20" stroke="#222" stroke-width="2"/>
-          <text x="10" y="52" font-size="12">B</text>
-          <line x1="28" y1="50" x2="200" y2="50" stroke="#222" stroke-width="2"/>
-          <text x="10" y="82" font-size="12">C</text>
-          <line x1="28" y1="80" x2="420" y2="80" stroke="#222" stroke-width="2"/>
+      <div class="diagram-wrap">
+        <svg class="logic-diagram" viewBox="0 0 980 160" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Q9 diagram">
+          <text x="10" y="24" font-size="12">A</text>
+          <line x1="34" y1="22" x2="200" y2="22" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+          <text x="10" y="54" font-size="12">B</text>
+          <line x1="34" y1="52" x2="200" y2="52" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+          <text x="10" y="84" font-size="12">C</text>
+          <line x1="34" y1="82" x2="420" y2="82" stroke="#222" stroke-width="2" stroke-linecap="round"/>
 
           <g transform="translate(200,8)"><use href="#gate-xor"></use></g>
-          <line x1="284" y1="28" x2="520" y2="28" stroke="#222" stroke-width="2"/>
+          <line x1="284" y1="36" x2="420" y2="36" stroke="#222" stroke-width="2" stroke-linecap="round"/>
 
-          <line x1="200" y1="50" x2="420" y2="44" stroke="#222" stroke-width="2"/>
-          <line x1="420" y1="80" x2="420" y2="58" stroke="#222" stroke-width="2"/>
-          <g transform="translate(420,16)"><use href="#gate-and"></use></g>
+          <line x1="200" y1="52" x2="420" y2="46" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+          <line x1="420" y1="82" x2="420" y2="56" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+          <g transform="translate(420,36)"><use href="#gate-and"></use></g>
 
-          <line x1="516" y1="40" x2="640" y2="40" stroke="#222" stroke-width="2"/>
-          <line x1="520" y1="28" x2="640" y2="28" stroke="#222" stroke-width="2"/>
+          <line x1="516" y1="56" x2="640" y2="56" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+          <line x1="520" y1="36" x2="640" y2="36" stroke="#222" stroke-width="2" stroke-linecap="round"/>
 
-          <g transform="translate(640,8)"><use href="#gate-or"></use></g>
-          <line x1="736" y1="40" x2="880" y2="40" stroke="#222" stroke-width="2"/>
-          <text x="840" y="48" font-size="13">X</text>
+          <g transform="translate(640,24)"><use href="#gate-or"></use></g>
+          <line x1="720" y1="44" x2="920" y2="44" stroke="#222" stroke-width="2" stroke-linecap="round"/>
+          <text x="900" y="50" font-size="13">X</text>
         </svg>
       </div>
-    </div></div>
 
-  </div> <!-- wrap -->
+      <button class="ms-toggle" aria-controls="ms9" aria-expanded="false">Show markscheme</button>
+      <div id="ms9" class="ms-panel" aria-hidden="true">
+        <div class="ms-content">
+          <p><i>(Mark scheme shows the correct logic circuit diagram with XOR, AND and OR gates.)</i></p>
+          <div class="table-wrap">
+            <table>
+              <tr><th>A</th><th>B</th><th>C</th><th>X</th></tr>
+              <tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+              <tr><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+              <tr><td>0</td><td>1</td><td>0</td><td>1</td></tr>
+              <tr><td>0</td><td>1</td><td>1</td><td>1</td></tr>
+              <tr><td>1</td><td>0</td><td>0</td><td>1</td></tr>
+              <tr><td>1</td><td>0</td><td>1</td><td>1</td></tr>
+              <tr><td>1</td><td>1</td><td>0</td><td>0</td></tr>
+              <tr><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
 
 <script>
-  (function(){
-    const buttons = Array.from(document.querySelectorAll('.accordion'));
-    const panels = Array.from(document.querySelectorAll('.panel'));
-    function closeAll(exceptIndex){
-      buttons.forEach((btn,i)=>{
-        if(i!==exceptIndex){
-          btn.setAttribute('aria-expanded','false');
-          panels[i].classList.remove('open');
-          panels[i].style.maxHeight = null;
-        }
-      });
-    }
-    buttons.forEach((btn, idx) => {
-      btn.addEventListener('click', () => {
-        const expanded = btn.getAttribute('aria-expanded') === 'true';
-        if(!expanded){
-          closeAll(idx);
-          btn.setAttribute('aria-expanded','true');
-          panels[idx].classList.add('open');
-          panels[idx].style.maxHeight = panels[idx].scrollHeight + 'px';
-          setTimeout(()=> btn.scrollIntoView({behavior:'smooth', block:'start'}), 160);
-        } else {
-          btn.setAttribute('aria-expanded','false');
-          panels[idx].classList.remove('open');
-          panels[idx].style.maxHeight = null;
-        }
-      });
-      btn.addEventListener('keydown', (e)=>{
-        if(e.key === 'Enter' || e.key === ' '){
-          e.preventDefault(); btn.click();
-        }
-      });
+(function(){
+  // Toggle markscheme panels — each question has its own toggle button
+  const toggles = Array.from(document.querySelectorAll('.ms-toggle'));
+  toggles.forEach((btn, idx) => {
+    const panel = document.getElementById(btn.getAttribute('aria-controls'));
+    btn.addEventListener('click', () => {
+      const open = panel.classList.contains('ms-open');
+      if(open){
+        panel.classList.remove('ms-open');
+        panel.setAttribute('aria-hidden','true');
+        btn.setAttribute('aria-expanded','false');
+        btn.textContent = "Show markscheme";
+      } else {
+        // close others for tidiness
+        document.querySelectorAll('.ms-panel.ms-open').forEach(p => { p.classList.remove('ms-open'); p.setAttribute('aria-hidden','true'); });
+        document.querySelectorAll('.ms-toggle[aria-expanded="true"]').forEach(b => { b.setAttribute('aria-expanded','false'); b.textContent = "Show markscheme"; });
+        panel.classList.add('ms-open');
+        panel.setAttribute('aria-hidden','false');
+        btn.setAttribute('aria-expanded','true');
+        btn.textContent = "Hide markscheme";
+        setTimeout(()=> btn.scrollIntoView({behavior:'smooth', block:'center'}), 160);
+      }
     });
-    window.addEventListener('load', ()=> {
-      buttons.forEach((b,i)=> b.setAttribute('aria-expanded','false'));
-      panels.forEach(p=> p.style.maxHeight = null);
-    });
-  })();
+    // keyboard accessible
+    btn.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); } });
+  });
+})();
 </script>
 </body>
 </html>
