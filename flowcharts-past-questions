@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Chapter 7 (Flowchart) Q&A</title>
+<style>
+  /* Basic styling */
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 15px;
+  }
+
+  h2, p {
+    padding: 0 10px;
+  }
+
+  /* Accordion button styling */
+  .accordion {
+    background-color: #004a99; /* A nice blue */
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 16px;
+    transition: 0.4s;
+    border-radius: 8px;
+    margin-top: 10px;
+    
+    /* Use Flexbox for layout */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .active, .accordion:hover {
+    background-color: #003366; /* Darker blue on hover/active */
+  }
+
+  /* Container for the question text */
+  .question-body {
+    flex-grow: 1; /* Allows this to take up available space */
+    font-weight: bold;
+    padding-right: 15px; /* Space before the marks */
+  }
+  
+  /* Style for the marks on the right */
+  .marks {
+    font-weight: bold;
+    font-size: 1.1em;
+    white-space: nowrap; /* Prevents marks from wrapping */
+  }
+
+  /* Style for content inside the question body */
+  .question-body p {
+    font-weight: normal;
+    font-size: 15px;
+    margin: 10px 0 0 0;
+    padding: 0;
+    white-space: pre-wrap; /* Ensures question text wraps */
+  }
+
+  /* Style for the answer panel */
+  .panel {
+    padding: 0 18px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-radius: 0 0 8px 8px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+  }
+
+  /* Style for content inside the answer panel */
+  .panel-content {
+    padding: 15px 5px;
+    line-height: 1.6;
+  }
+
+  .panel-content pre, .panel-content li {
+    white-space: pre-wrap; /* Allows answers to wrap */
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Shared style for pseudocode blocks (in answers) */
+  pre.pseudocode {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #eee;
+    padding: 10px;
+    border-radius: 5px;
+    white-space: pre-wrap; /* Ensures long lines wrap */
+    font-size: 14px;
+  }
+
+  /* Targets pseudocode blocks INSIDE the blue button. */
+  .accordion pre.pseudocode {
+    color: #333; /* Dark text */
+    background-color: #f9f9f9; /* Light background */
+    border: 1px solid #ddd;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px; /* Ensure font size is consistent */
+  }
+  
+  /* Styling for all tables in the panel */
+  .panel table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+  
+  .panel table th, .panel table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+    font-family: Arial, sans-serif;
+    vertical-align: top;
+  }
+  
+  .panel table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+  }
+  
+  /* Specific style for Mark Scheme tables */
+  .mark-scheme-table {
+    width: 100%;
+  }
+  
+  .mark-scheme-table th, .mark-scheme-table td {
+    text-align: left; /* Mark schemes are left-aligned */
+    vertical-align: top;
+  }
+  
+  .mark-scheme-table th:first-child {
+    width: 100px; /* Give a fixed width to the 'Mark Point' column */
+    background-color: #f9f9f9;
+  }
+
+  /* Style for table inside a question button */
+  .question-table {
+    width: 98%; /* Slightly less than 100% for padding */
+    margin: 10px auto;
+    background-color: #f9f9f9; /* Light background to stand out */
+    color: #333; /* Dark text for readability */
+    border-radius: 5px;
+    border-collapse: collapse; /* Cleaner look */
+  }
+  .question-table th, .question-table td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+    font-weight: normal;
+    font-size: 15px;
+    font-family: Arial, sans-serif;
+    vertical-align: top;
+  }
+  .question-table th {
+    background-color: #e9e9e9;
+    font-weight: bold;
+    color: #003366; /* Match button theme */
+  }
+
+  /* Style for images inside a question button */
+  .question-body img {
+    width: 100%; 
+    max-width: 400px; 
+    height: auto; 
+    border-radius: 5px; 
+    margin: 10px 0; 
+    background: white;
+    border: 1px solid #ddd;
+  }
+</style>
+</head>
+<body>
+
+<h2>Chapter 7 - Flowchart: Questions</h2>
+<p>Click on a question to reveal the mark scheme.</p>
+
+<button class="accordion">
+  <div class="question-body">
+    <b>Question 1</b>
+    <p>The flowchart represents an algorithm that performs a process on groups of values that are input.
+    The algorithm will fail if the first value of any group is 0.
+    An input of -1 will terminate the algorithm.</p>
+    
+    <img src="https://drive.google.com/uc?id=1Ht3jIbR1i8heKn_BXQnq4dQGp8oLsI6R" alt="Flowchart for Question 1">
+    
+    <p>(a) Complete the trace table for the input data:
+    25, 35, 3, 0, 57, 20, 25, 18, 0, -1, 307, 40, 0</p>
+    <p>(b) Describe the purpose of the algorithm.</p>
+  </div>
+  <span class="marks">[7 marks]</span>
+</button>
+<div class="panel">
+  <div class="panel-content">
+    <b>Answer (a) (5 marks)</b>
+    <p>One mark per correct column.</p>
+    <table>
+      <tr>
+        <th>Value</th>
+        <th>Average</th>
+        <th>Total</th>
+        <th>Count</th>
+        <th>OUTPUT</th>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td>0</td>
+        <td>0</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>25</td>
+        <td></td>
+        <td>25</td>
+        <td>1</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>35</td>
+        <td></td>
+        <td>60</td>
+        <td>2</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td></td>
+        <td>63</td>
+        <td>3</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td>21</td>
+        <td>0</td>
+        <td>0</td>
+        <td>Total is 63<br>Average is 21</td>
+      </tr>
+      <tr>
+        <td>57</td>
+        <td></td>
+        <td>57</td>
+        <td>1</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>20</td>
+        <td></td>
+        <td>77</td>
+        <td>2</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>25</td>
+        <td></td>
+        <td>102</td>
+        <td>3</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>18</td>
+        <td></td>
+        <td>120</td>
+        <td>4</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td>30</td>
+        <td>0</td>
+        <td>0</td>
+        <td>Total is 120<br>Average is 30</td>
+      </tr>
+      <tr>
+        <td>-1</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+    <b>Answer (b) (2 marks)</b>
+    <p>Any two from:</p>
+    <ul>
+      <li>to add together / find the average of a batch of numbers</li>
+      <li>the total and average are output (when the batch is complete/when 0 is entered)</li>
+      <li>when 0 is entered a new batch is started.</li>
+    </ul>
+  </div>
+</div>
+
+<button class="accordion">
+  <div class="question-body">
+    <b>Question 2</b>
+    <p>This is an algorithm to find if a batch of parts has been manufactured successfully.</p>
+    
+    <img src="https://drive.google.com/uc?id=1XUeNakbobY-QZGSg_A6tgWVgoqA61LOD" alt="Flowchart for Question 2">
+    
+    <p>(a) Complete the trace table for the input data:
+    'Y', 'Y', 'Y', 'N', 'Y', 'N', 'Y', ''</p>
+    <p>(b) Describe the purpose of the algorithm.</p>
+  </div>
+  <span class="marks">[7 marks]</span>
+</button>
+<div class="panel">
+  <div class="panel-content">
+    <b>Answer (a) (4 marks)</b>
+    <table>
+      <tr>
+        <th>PartOK</th>
+        <th>Accept</th>
+        <th>Reject</th>
+        <th>OUTPUT</th>
+      </tr>
+      <tr>
+        <td></td>
+        <td>0</td>
+        <td>0</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>'Y'</td>
+        <td>1</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>'Y'</td>
+        <td>2</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>'Y'</td>
+        <td>3</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>'N'</td>
+        <td></td>
+        <td>1</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>'Y'</td>
+        <td>4</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>'N'</td>
+        <td></td>
+        <td>2</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>'Y'</td>
+        <td>5</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>''</td>
+        <td></td>
+        <td></td>
+        <td>5, 2</td>
+      </tr>
+    </table>
+    <b>Answer (b) (3 marks)</b>
+    <ul>
+      <li>Counts the number of accepted parts</li>
+      <li>Counts the number of rejected parts</li>
+      <li>Outputs the counts when an empty string is entered</li>
+    </ul>
+  </div>
+</div>
+
+<button class="accordion">
+  <div class="question-body">
+    <b>Question 3</b>
+    <p>The flowchart shows an algorithm.</p>
+    
+    <img src="https://drive.google.com/uc?id=1rUx0kzgGrKMCsB3pEdvAMViASJ6hDZ-Y" alt="Flowchart for Question 3">
+    
+    <p>Complete the trace table for the input data:
+    4, 5, 1, 6, -1</p>
+  </div>
+  <span class="marks">[6 marks]</span>
+</button>
+<div class="panel">
+  <div class="panel-content">
+    <b>Answer (6 marks)</b>
+    <table>
+      <tr>
+        <th>A</th>
+        <th>B</th>
+        <th>C</th>
+        <th>D</th>
+        <th>E</th>
+        <th>OUTPUT</th>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Enter first number</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Enter next number</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>5</td>
+        <td></td>
+        <td>9</td>
+        <td>-1</td>
+        <td>9, -1, Enter next number</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>1</td>
+        <td></td>
+        <td>10</td>
+        <td>-1</td>
+        <td>10, -1, Enter next number</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>6</td>
+        <td></td>
+        <td>16</td>
+        <td>-1</td>
+        <td>16, -1, Enter next number</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>-1</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<button class="accordion">
+  <div class="question-body">
+    <b>Question 4</b>
+    <p>An algorithm is written in pseudocode:</p>
+<pre class="pseudocode">
+C = 1
+WHILE C < 5
+    IF X[C] > X[C+1]
+        THEN
+            T = X[C]
+            X[C] = X[C+1]
+            X[C+1] = T
+    ENDIF
+    C = C + 1
+ENDWHILE
+</pre>
+    <p>Complete the trace table for the array X: 5, 2, 4, 3, 1</p>
+  </div>
+  <span class="marks">[6 marks]</span>
+</button>
+<div class="panel">
+  <div class="panel-content">
+    <b>Answer (6 marks)</b>
+    <table>
+      <tr>
+        <th>C</th>
+        <th>T</th>
+        <th>X[1]</th>
+        <th>X[2]</th>
+        <th>X[3]</th>
+        <th>X[4]</th>
+        <th>X[5]</th>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td>5</td>
+        <td>2</td>
+        <td>4</td>
+        <td>3</td>
+        <td>1</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>5</td>
+        <td>2</td>
+        <td>5</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>5</td>
+        <td></td>
+        <td>4</td>
+        <td>5</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>5</td>
+        <td></td>
+        <td></td>
+        <td>3</td>
+        <td>5</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>5</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>1</td>
+        <td>5</td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<button class="accordion">
+  <div class="question-body">
+    <b>Question 5</b>
+    <p>The flowchart shows an algorithm.</p>
+    
+    <img src="https://drive.google.com/uc?id=YOUR_FILE_ID_FOR_Q5" alt="Flowchart for Question 5">
+    
+    <p>Complete the trace table for the given input data:
+    2, 4, 6, 8, -1</p>
+  </div>
+  <span class="marks">[5 marks]</span>
+</button>
+<div class="panel">
+  <div class="panel-content">
+    <b>Answer (5 marks)</b>
+    <table>
+      <tr>
+        <th>A</th>
+        <th>B</th>
+        <th>C</th>
+        <th>D</th>
+        <th>OUTPUT</th>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td>0</td>
+        <td></td>
+        <td>0</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td>2</td>
+        <td>2</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td>4</td>
+        <td>6</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td>6</td>
+        <td>12</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td>8</td>
+        <td>20</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td>-1</td>
+        <td></td>
+        <td>20</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<button class="accordion">
+  <div class="question-body">
+    <b>Question 6</b>
+    <p>The flowchart shows an algorithm.</p>
+    
+    <img src="https://drive.google.com/uc?id=YOUR_FILE_ID_FOR_Q6" alt="Flowchart for Question 6">
+    
+    <p>(a) Complete the trace table for the input data:
+    5, 3, 6, 1, 9, 2, 7, 0</p>
+    <p>(b) State the purpose of the algorithm.</p>
+  </div>
+  <span class="marks">[8 marks]</span>
+</button>
+<div class="panel">
+  <div class="panel-content">
+    <b>Answer (a) (6 marks)</b>
+    <table>
+      <tr>
+        <th>A</th>
+        <th>B</th>
+        <th>OUTPUT</th>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>3</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>6</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>1</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>9</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>2</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>7</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>0</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td>9</td>
+      </tr>
+    </table>
+    <b>Answer (b) (2 marks)</b>
+    <ul>
+      <li>Finds the largest number</li>
+      <li>from a series of input numbers (until 0 is input)</li>
+    </ul>
+  </div>
+</div>
+
+<button class="accordion">
+  <div class="question-body">
+    <b>Question 7</b>
+    <p>A flowchart for an algorithm is shown.</p>
+    
+    <img src="https://drive.google.com/uc?id=YOUR_FILE_ID_FOR_Q7" alt="Flowchart for Question 7">
+    
+    <p>(a) Complete the trace table for the input data:
+    "Red", "Green", "Green", "Red", "Blue", "Green", "STOP"</p>
+    <p>(b) State the purpose of the algorithm, explaining what the output means.</p>
+  </div>
+  <span class="marks">[6 marks]</span>
+</button>
+<div class="panel">
+  <div class="panel-content">
+    <b>Answer (a) (4 marks)</b>
+    <table>
+      <tr>
+        <th>Colour</th>
+        <th>R</th>
+        <th>G</th>
+        <th>B</th>
+        <th>OUTPUT</th>
+      </tr>
+      <tr>
+        <td></td>
+        <td>0</td>
+        <td>0</td>
+        <td>0</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>"Red"</td>
+        <td>1</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>"Green"</td>
+        <td></td>
+        <td>1</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>"Green"</td>
+        <td></td>
+        <td>2</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>"Red"</td>
+        <td>2</td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>"Blue"</td>
+        <td></td>
+        <td></td>
+        <td>1</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>"Green"</td>
+        <td></td>
+        <td>3</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>"STOP"</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>3</td>
+      </tr>
+    </table>
+    <b>Answer (b) (2 marks)</b>
+    <ul>
+      <li>To count the number of times "Green", "Red", and "Blue" are input</li>
+      <li>Stops counting when "STOP" is input</li>
+      <li>The output is the number of times "Green" was input</li>
+    </ul>
+  </div>
+</div>
+
+<button class="accordion">
+  <div class="question-body">
+    <b>Question 8</b>
+    <p>A flowchart for an algorithm is shown.</p>
+    
+    <img src="https://drive.google.com/uc?id=YOUR_FILE_ID_FOR_Q8" alt="Flowchart for Question 8">
+    
+    <p>Complete the trace table for the input data:
+    13, 17, 26, 25, 5, 10, 15, 35, 20, 0</p>
+  </div>
+  <span class="marks">[5 marks]</span>
+</button>
+<div class="panel">
+  <div class="panel-content">
+    <b>Answer (5 marks)</b>
+    <table>
+      <tr>
+        <th>Weight</th>
+        <th>Reject</th>
+        <th>TotalWeight</th>
+        <th>OUTPUT</th>
+      </tr>
+      <tr>
+        <td></td>
+        <td>0</td>
+        <td>0</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>13</td>
+        <td></td>
+        <td>13</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>17</td>
+        <td></td>
+        <td>30</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>26</td>
+        <td>1</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>25</td>
+        <td></td>
+        <td>55</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td></td>
+        <td>60</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>10</td>
+        <td></td>
+        <td>70</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>15</td>
+        <td></td>
+        <td>85</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>35</td>
+        <td>2</td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>20</td>
+        <td></td>
+        <td>105</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td></td>
+        <td></td>
+        <td>Weight of items 105 Number of items rejected 2</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<button class="accordion">
+  <div class="question-body">
+    <b>Question 9</b>
+    <p>An algorithm is written in pseudocode:</p>
+<pre class="pseudocode">
+Flag = 0
+C = 1
+WHILE C < 4
+    IF Name[C] > Name[C+1]
+        THEN
+            Flag = 1
+            Temp = Name[C]
+            Name[C] = Name[C+1]
+            Name[C+1] = Temp
+    ENDIF
+    C = C + 1
+ENDWHILE
+</pre>
+    <p>Complete the trace table for the array Name: 'Jamal', 'Amir', 'Tara', 'Eve'</p>
+  </div>
+  <span class="marks">[5 marks]</span>
+</button>
+<div class="panel">
+  <div class="panel-content">
+    <b>Answer (5 marks)</b>
+    <table>
+      <tr>
+        <th>Flag</th>
+        <th>C</th>
+        <th>Name[1]</th>
+        <th>Name[2]</th>
+        <th>Name[3]</th>
+        <th>Name[4]</th>
+        <th>Temp</th>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td>Jamal</td>
+        <td>Amir</td>
+        <td>Tara</td>
+        <td>Eve</td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>0</td>
+        <td>1</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td></td>
+        <td>Amir</td>
+        <td>Jamal</td>
+        <td></td>
+        <td></td>
+        <td>Jamal</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>2</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>3</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td>Eve</td>
+        <td>Tara</td>
+        <td>Tara</td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>4</td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+
+<script>
+// JavaScript for the accordion functionality
+var acc = document.getElementsByClassName("accordion");
+var i;
+
+for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function() {
+    // Close all other panels
+    var allPanels = document.getElementsByClassName("panel");
+    var allButtons = document.getElementsByClassName("accordion");
+    for (var j = 0; j < allPanels.length; j++) {
+      if (allPanels[j].style.maxHeight && allPanels[j] !== this.nextElementSibling) {
+        allPanels[j].style.maxHeight = null;
+        allButtons[j].classList.remove("active");
+      }
+    }
+    
+    // Open or close the clicked panel
+    this.classList.toggle("active");
+    var panel = this.nextElementSibling;
+    if (panel.style.maxHeight) {
+      panel.style.maxHeight = null;
+    } else {
+      panel.style.maxHeight = panel.scrollHeight + "px";
+    } 
+  });
+}
+</script>
+
+</body>
+</html>
