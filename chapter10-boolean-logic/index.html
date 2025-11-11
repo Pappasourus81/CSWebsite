@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Chapter 10 — Boolean Logic (questions + markscheme)</title>
+<style>
+  :root{
+    --page-bg:#f4f6f8;
+    --accent:#004a99;
+    --accent-2:#003366;
+    --card-bg:#fff;
+    --muted:#6b7280;
+    --mono: 'Courier New', Courier, monospace;
+    --radius:10px;
+    font-size:16px;
+  }
+  html,body{height:100%;margin:0;background:var(--page-bg);font-family:Inter, "Segoe UI", Roboto, Arial, sans-serif;color:#0f1724;}
+  .wrap{max-width:980px;margin:28px auto;padding:22px;}
+  header h1{margin:0 0 6px 0;font-size:1.25rem;}
+  header p{margin:0 0 18px 0;color:var(--muted);}
+
+  /* Question card */
+  .qcard{background:var(--card-bg); border-radius:12px; padding:14px; margin-bottom:18px; box-shadow:0 2px 8px rgba(8,15,30,0.04); border:1px solid rgba(10,20,30,0.04);}
+  .qtitle{font-weight:700; color:var(--accent-2); margin:0 0 6px 0;}
+  .qtext{white-space:pre-wrap; margin:0 0 12px 0; line-height:1.45;}
+  .diagram-container{background:#fff; border-radius:8px; padding:10px; box-shadow:0 1px 4px rgba(8,15,30,0.03); margin-bottom:12px; display:flex; align-items:center; justify-content:center; min-height:140px;}
+
+  /* image (if present) */
+  .diagram{ max-width:100%; height:auto; display:block; border-radius:6px; box-shadow:0 1px 3px rgba(0,0,0,0.05); }
+
+  /* placeholder shown when image not present */
+  .placeholder{
+    display:none; width:100%; text-align:center; color:var(--muted); padding:14px; border:2px dashed #e6eef6; border-radius:8px; background:#fcfeff;
+  }
+  .placeholder strong{display:block; margin-bottom:6px; color:#0b1724;}
+
+  /* markscheme button and panel */
+  .ms-toggle{display:inline-block; background:linear-gradient(180deg,var(--accent),var(--accent-2)); color:#fff; border:none; padding:10px 14px; border-radius:8px; cursor:pointer; font-weight:700; margin-bottom:8px;}
+  .ms-toggle:focus{outline:3px solid rgba(0,74,153,0.18);}
+  .ms-panel{overflow:hidden; max-height:0; transition:max-height .28s ease; border-top:1px dashed rgba(0,0,0,0.06); padding:0 0;}
+  .ms-open{max-height:2000px; padding-top:12px;}
+  .ms-content{padding:8px 0 14px 0; line-height:1.5;}
+
+  pre.logic{margin:8px 0 12px 0;font-family:var(--mono);background:#f1f5f9;padding:8px;border-radius:6px;overflow:auto;font-size:0.98rem;}
+
+  .table-wrap{overflow:auto;margin-top:8px;}
+  table{border-collapse:collapse;font-family:var(--mono);font-size:0.96rem;}
+  th,td{border:1px solid #e6eef6;padding:8px 10px;text-align:center;}
+  th{background:#f8fafc;font-weight:700;}
+
+  @media (max-width:520px){
+    .wrap{padding:12px;}
+    .diagram-container{min-height:160px;}
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Chapter 10 — Boolean Logic</h1>
+      <p>Each question below shows the full question text. Click "Show markscheme" to reveal the full markscheme (verbatim from the uploaded PDFs).</p>
+    </header>
+
+    <!-- -----------------------------------------------------
+         QUESTION 1
+         Placeholder will show the filename to upload: images/q1.png
+         ----------------------------------------------------- -->
+    <section class="qcard" id="q1">
+      <h2 class="qtitle">Question 1</h2>
+
+      <div class="qtext">
+<pre style="white-space:pre-wrap">
+Consider this logic circuit.
+(Image of logic circuit: (NOT A AND B) OR NOT C)
+
+(a) Write a logic expression for this logic circuit. Do not attempt to simplify this logic expression.
+X =
+(b) Complete the truth table from the given logic circuit.
+</pre>
+      </div>
+
+      <div class="diagram-container" aria-hidden="false">
+        <!-- Image: put your diagram file at images/q1.png -->
+        <img class="diagram" src="images/q1.png" alt="Diagram for Question 1 (replace images/q1.png)" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <div class="placeholder" role="img" aria-label="Placeholder for images/q1.png">
+          <strong>Insert diagram file:</strong>
+          Filename: <code>images/q1.png</code><br>
+          Recommended: PNG or SVG, approx. 800×200–1200×300 px for clarity. Upload this file to the folder <code>images/</code> in your repo.
+        </div>
+      </div>
+
+      <button class="ms-toggle" aria-controls="ms1" aria-expanded="false">Show markscheme</button>
+      <div id="ms1" class="ms-panel" aria-hidden="true">
+        <div class="ms-content">
+          <!-- Verbatim markscheme from your Answer booklet -->
+          <b>Answer (a) (4 marks)</b>
+          <pre class="logic">X = (NOT A AND B) OR NOT C</pre>
+          <p>(One mark each for: NOT A, AND B, NOT C, OR)</p>
+
+          <b>Answer (b) (4 marks)</b>
+          <div class="table-wrap">
+            <table>
+              <tr><th>A</th><th>B</th><th>C</th><th>X</th></tr>
+              <tr><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+              <tr><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+              <tr><td>0</td><td>1</td><td>0</td><td>1</td></tr>
+              <tr><td>0</td><td>1</td><td>1</td><td>1</td></tr>
+              <tr><td>1</td><td>0</td><td>0</td><td>1</td></tr>
+              <tr><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+              <tr><td>1</td><td>1</td><td>0</td><td>1</td></tr>
+              <tr><td>1</td><td>1</td><td>1</td><td>0</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- -----------------------------------------------------
+         QUESTION 2  -> placeholder: images/q2.png
+         ----------------------------------------------------- -->
+    <section class="qcard" id="q2">
+      <h2 class="qtitle">Question 2</h2>
+
+      <div class="qtext">
+<pre style="white-space:pre-wrap">
+Consider the logic expression:
+Z = (A NAND B) OR NOT (B XOR C)
+
+(a) Draw a logic circuit for this logic expression.
+Each logic gate must have a maximum of two inputs.
+Do not simplify this logic expression.
+
+(b) Complete the truth table from the given logic expression.
+</pre>
+      </div>
+
+      <div class="diagram-container">
+        <img class="diagram" src="images/q2.png" alt="Diagram for Question 2 (replace images/q2.png)" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <div class="placeholder">
+          <strong>Insert diagram file:</strong>
+          Filename: <code>images/q2.png</code><br>
+          Recommended: PNG or SVG, approx. 800×200–1200×300 px.
+        </div>
+      </div>
+
+      <button class="ms-toggle" aria-controls="ms2" aria-expanded="false">Show markscheme</button>
+      <div id="ms2" class="ms-panel" aria-hidden="true">
+        <div class="ms-content">
+          <b>Answer (a) (4 marks)</b>
+          <p><i>(Mark scheme shows the correct logic circuit diagram with NAND, XOR, NOT, and OR gates.)</i></p>
+
+          <b>Answer (b) (4 marks)</b>
+          <div class="table-wrap">
+            <table>
+              <tr><th>A</th><th>B</th><th>C</th><th>Z</th></tr>
+              <tr><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+              <tr><td>0</td><td>0</td><td>1</td><td>1</td></tr>
+              <tr><td>0</td><td>1</td><td>0</td><td>1</td></tr>
+              <tr><td>0</td><td>1</td><td>1</td><td>1</td></tr>
+              <tr><td>1</td><td>0</td><td>0</td><td>1</td></tr>
+              <tr><td>1</td><td>0</td><td>1</td><td>1</td></tr>
+              <tr><td>1</td><td>1</td><td>0</td><td>1</td></tr>
+              <tr><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- -----------------------------------------------------
+         QUESTION 3  -> images/q3.png
+         ----------------------------------------------------- -->
+    <section class="qcard" id="q3">
+      <h2 class="qtitle">Question 3</h2>
+
+      <div class="qtext">
+<pre style="white-space:pre-wrap">
+Consider this logic circuit.
+(Image of logic circuit: (A XOR B) AND C)
+
+(a) Write a logic expression for this logic circuit. Do not attempt to simplify this logic expression.
+X =
+(b) Complete the truth table from the given logic circuit.
+</pre>
+      </div>
+
+      <div class="diagram-container">
+        <img class="diagram" src="images/q3.png" alt="Diagram for Question 3 (replace images/q3.png)" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <div class="placeholder">
+          <strong>Insert diagram file:</strong>
+          Filename: <code>images/q3.png</code>
+        </div>
+      </div>
+
+      <button class="ms-toggle" aria-controls="ms3" aria-expanded="false">Show markscheme</button>
+      <div id="ms3" class="ms-panel" aria-hidden="true">
+        <div class="ms-content">
+          <b>Answer (a) (3 marks)</b>
+          <pre class="logic">X = (A XOR B) AND C</pre>
+
+          <b>Answer (b) (4 marks)</b>
+          <div class="table-wrap">
+            <table>
+              <tr><th>A</th><th>B</th><th>C</th><th>X</th></tr>
+              <tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+              <tr><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+              <tr><td>0</td><td>1</td><td>0</td><td>0</td></tr>
+              <tr><td>0</td><td>1</td><td>1</td><td>1</td></tr>
+              <tr><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+              <tr><td>1</td><td>0</td><td>1</td><td>1</td></tr>
+              <tr><td>1</td><td>1</td><td>0</td><td>0</td></tr>
+              <tr><td>1</td><td>1</td><td>1</td><td>0</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- -----------------------------------------------------
+         QUESTION 4  -> images/q4.png
+         ----------------------------------------------------- -->
+    <section class="qcard" id="q4">
+      <h2 class="qtitle">Question 4</h2>
+
+      <div class="qtext">
+<pre style="white-space:pre-wrap">
+Consider this logic expression.
+X = (A OR B) AND (NOT B OR C)
+
+(a) Draw a logic circuit for this logic expression. Each logic gate must have a maximum of two
+inputs. Do not simplify this logic expression.
+
+(b) Complete the truth table from the given logic expression.
+</pre>
+      </div>
+
+      <div class="diagram-container">
+        <img class="diagram" src="images/q4.png" alt="Diagram for Question 4 (replace images/q4.png)" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <div class="placeholder">
+          <strong>Insert diagram file:</strong>
+          Filename: <code>images/q4.png</code>
+        </div>
+      </div>
+
+      <button class="ms-toggle" aria-controls="ms4" aria-expanded="false">Show markscheme</button>
+      <div id="ms4" class="ms-panel" aria-hidden="true">
+        <div class="ms-content">
+          <p><i>(Mark scheme shows the correct logic circuit diagram with OR, NOT, OR, and AND gates.)</i></p>
+          <div class="table-wrap">
+            <table>
+              <tr><th>A</th><th>B</th><th>C</th><th>X</th></tr>
+              <tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+              <tr><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+              <tr><td>0</td><td>1</td><td>0</td><td>0</td></tr>
+              <tr><td>0</td><td>1</td><td>1</td><td>1</td></tr>
+              <tr><td>1</td><td>0</td><td>0</td><td>1</td></tr>
+              <tr><td>1</td><td>0</td><td>1</td><td>1</td></tr>
+              <tr><td>1</td><td>1</td><td>0</td><td>0</td></tr>
+              <tr><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- -----------------------------------------------------
+         QUESTION 5  -> images/q5.png
+         ----------------------------------------------------- -->
+    <section class="qcard" id="q5">
+      <h2 class="qtitle">Question 5</h2>
+
+      <div class="qtext">
+<pre style="white-space:pre-wrap">
+Consider this logic circuit.
+(Image of logic circuit: (A NOR B) OR (B AND C))
+
+(a) Write a logic expression for this logic circuit. Do not attempt to simplify this logic expression.
+X =
+(b) Complete the truth table from the given logic circuit.
+</pre>
+      </div>
+
+      <div class="diagram-container">
+        <img class="diagram" src="images/q5.png" alt="Diagram for Question 5 (replace images/q5.png)" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <div class="placeholder">
+          <strong>Insert diagram file:</strong>
+          Filename: <code>images/q5.png</code>
+        </div>
+      </div>
+
+      <button class="ms-toggle" aria-controls="ms5" aria-expanded="false">Show markscheme</button>
+      <div id="ms5" class="ms-panel" aria-hidden="true">
+        <div class="ms-content">
+          <b>Answer (a) (3 marks)</b>
+          <pre class="logic">X = (A NOR B) OR (B AND C)</pre>
+
+          <b>Answer (b) (4 marks)</b>
+          <div class="table-wrap">
+            <table>
+              <tr><th>A</th><th>B</th><th>C</th><th>X</th></tr>
+              <tr><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+              <tr><td>0</td><td>0</td><td>1</td><td>1</td></tr>
+              <tr><td>0</td><td>1</td><td>0</td><td>0</td></tr>
+              <tr><td>0</td><td>1</td><td>1</td><td>1</td></tr>
+              <tr><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+              <tr><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+              <tr><td>1</td><td>1</td><td>0</td><td>0</td></tr>
+              <tr><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- -----------------------------------------------------
+         QUESTION 6  -> images/q6.png
+         ----------------------------------------------------- -->
+    <section class="qcard" id="q6">
+      <h2 class="qtitle">Question 6</h2>
+
+      <div class="qtext">
+<pre style="white-space:pre-wrap">
+Consider this logic circuit.
+(Image of logic circuit: (A OR B) AND (B XOR C))
+
+(a) Complete the truth table from the given logic circuit.
+</pre>
+      </div>
+
+      <div class="diagram-container">
+        <img class="diagram" src="images/q6.png" alt="Diagram for Question 6 (replace images/q6.png)" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <div class="placeholder">
+          <strong>Insert diagram file:</strong>
+          Filename: <code>images/q6.png</code>
+        </div>
+      </div>
+
+      <button class="ms-toggle" aria-controls="ms6" aria-expanded="false">Show markscheme</button>
+      <div id="ms6" class="ms-panel" aria-hidden="true">
+        <div class="ms-content">
+          <b>Answer (a)</b>
+          <pre class="logic">X = (A OR B) AND (B XOR C)</pre>
+          <b>Answer (b) (4 marks)</b>
+          <div class="table-wrap">
+            <table>
+              <tr><th>A</th><th>B</th><th>C</th><th>X</th></tr>
+              <tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+              <tr><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+              <tr><td>0</td><td>1</td><td>0</td><td>1</td></tr>
+              <tr><td>0</td><td>1</td><td>1</td><td>0</td></tr>
+              <tr><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+              <tr><td>1</td><td>0</td><td>1</td><td>1</td></tr>
+              <tr><td>1</td><td>1</td><td>0</td><td>1</td></tr>
+              <tr><td>1</td><td>1</td><td>1</td><td>0</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- -----------------------------------------------------
+         QUESTION 9  -> images/q9.png
+         ----------------------------------------------------- -->
+    <section class="qcard" id="q9">
+      <h2 class="qtitle">Question 9</h2>
+
+      <div class="qtext">
+<pre style="white-space:pre-wrap">
+(Mapped from QbT Q9 to AbT Q9)
+Consider this logic expression.
+X = (A XOR B) OR (B AND C)
+
+(a) Draw a logic circuit for this logic expression. Each logic gate must have a maximum of two
+inputs. Do not simplify this logic expression.
+
+(b) Complete the truth table from the given logic expression.
+</pre>
+      </div>
+
+      <div class="diagram-container">
+        <img class="diagram" src="images/q9.png" alt="Diagram for Question 9 (replace images/q9.png)" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <div class="placeholder">
+          <strong>Insert diagram file:</strong>
+          Filename: <code>images/q9.png</code>
+        </div>
+      </div>
+
+      <button class="ms-toggle" aria-controls="ms9" aria-expanded="false">Show markscheme</button>
+      <div id="ms9" class="ms-panel" aria-hidden="true">
+        <div class="ms-content">
+          <p><i>(Mark scheme shows the correct logic circuit diagram with XOR, AND and OR gates.)</i></p>
+          <div class="table-wrap">
+            <table>
+              <tr><th>A</th><th>B</th><th>C</th><th>X</th></tr>
+              <tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+              <tr><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+              <tr><td>0</td><td>1</td><td>0</td><td>1</td></tr>
+              <tr><td>0</td><td>1</td><td>1</td><td>1</td></tr>
+              <tr><td>1</td><td>0</td><td>0</td><td>1</td></tr>
+              <tr><td>1</td><td>0</td><td>1</td><td>1</td></tr>
+              <tr><td>1</td><td>1</td><td>0</td><td>0</td></tr>
+              <tr><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+<script>
+(function(){
+  // Toggle markscheme panels — each question has its own toggle button
+  const toggles = Array.from(document.querySelectorAll('.ms-toggle'));
+  toggles.forEach((btn) => {
+    const panel = document.getElementById(btn.getAttribute('aria-controls'));
+    btn.addEventListener('click', () => {
+      const open = panel.classList.contains('ms-open');
+      if(open){
+        panel.classList.remove('ms-open');
+        panel.setAttribute('aria-hidden','true');
+        btn.setAttribute('aria-expanded','false');
+        btn.textContent = "Show markscheme";
+      } else {
+        // close others for tidiness
+        document.querySelectorAll('.ms-panel.ms-open').forEach(p => { p.classList.remove('ms-open'); p.setAttribute('aria-hidden','true'); });
+        document.querySelectorAll('.ms-toggle[aria-expanded="true"]').forEach(b => { b.setAttribute('aria-expanded','false'); b.textContent = "Show markscheme"; });
+        panel.classList.add('ms-open');
+        panel.setAttribute('aria-hidden','false');
+        btn.setAttribute('aria-expanded','true');
+        btn.textContent = "Hide markscheme";
+        setTimeout(()=> btn.scrollIntoView({behavior:'smooth', block:'center'}), 160);
+      }
+    });
+    // keyboard accessible
+    btn.addEventListener('keydown', (e) => { if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); btn.click(); } });
+  });
+})();
+</script>
+</body>
+</html>
