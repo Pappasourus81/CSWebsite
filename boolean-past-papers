@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Chapter 10 — Boolean Logic (questions visible, markscheme toggles)</title>
+<title>Chapter 10 — Boolean Logic (questions + markscheme)</title>
 <style>
   :root{
     --page-bg:#f4f6f8;
@@ -24,8 +24,16 @@
   .qcard{background:var(--card-bg); border-radius:12px; padding:14px; margin-bottom:18px; box-shadow:0 2px 8px rgba(8,15,30,0.04); border:1px solid rgba(10,20,30,0.04);}
   .qtitle{font-weight:700; color:var(--accent-2); margin:0 0 6px 0;}
   .qtext{white-space:pre-wrap; margin:0 0 12px 0; line-height:1.45;}
-  .diagram-wrap{background:#fff; border-radius:8px; padding:8px; box-shadow:0 1px 4px rgba(8,15,30,0.03); margin-bottom:10px;}
-  .diagram-wrap svg{width:100%; height:auto; display:block; vector-effect: non-scaling-stroke;}
+  .diagram-container{background:#fff; border-radius:8px; padding:10px; box-shadow:0 1px 4px rgba(8,15,30,0.03); margin-bottom:12px; display:flex; align-items:center; justify-content:center; min-height:140px;}
+
+  /* image (if present) */
+  .diagram{ max-width:100%; height:auto; display:block; border-radius:6px; box-shadow:0 1px 3px rgba(0,0,0,0.05); }
+
+  /* placeholder shown when image not present */
+  .placeholder{
+    display:none; width:100%; text-align:center; color:var(--muted); padding:14px; border:2px dashed #e6eef6; border-radius:8px; background:#fcfeff;
+  }
+  .placeholder strong{display:block; margin-bottom:6px; color:#0b1724;}
 
   /* markscheme button and panel */
   .ms-toggle{display:inline-block; background:linear-gradient(180deg,var(--accent),var(--accent-2)); color:#fff; border:none; padding:10px 14px; border-radius:8px; cursor:pointer; font-weight:700; margin-bottom:8px;}
@@ -43,6 +51,7 @@
 
   @media (max-width:520px){
     .wrap{padding:12px;}
+    .diagram-container{min-height:160px;}
   }
 </style>
 </head>
@@ -50,24 +59,16 @@
   <div class="wrap">
     <header>
       <h1>Chapter 10 — Boolean Logic</h1>
-      <p>Each question below is shown in full (text + diagram). Click “Show markscheme” to reveal the answer and mark scheme for that question.</p>
+      <p>Each question below shows the full question text. Click "Show markscheme" to reveal the full markscheme (verbatim from the uploaded PDFs).</p>
     </header>
 
-    <!-- SVG gate defs -->
-    <svg width="0" height="0" style="position:absolute;left:-9999px" aria-hidden="true" focusable="false">
-      <defs>
-        <g id="gate-and"><rect x="0" y="0" width="90" height="56" rx="8" fill="#fff" stroke="#222" stroke-width="1.8"/><path d="M44,0 a44,28 0 0,1 0,56" fill="#fff" stroke="#222" stroke-width="1.8"/></g>
-        <g id="gate-or"><path d="M0,7 C28,26 28,30 0,49 L36,49 C76,49 106,29 36,7 Z" fill="#fff" stroke="#222" stroke-width="1.8"/><path d="M-10,7 C18,26 18,30 -10,49" fill="none" stroke="#222" stroke-width="1.1"/></g>
-        <g id="gate-xor"><path d="M-12,7 C18,26 18,30 -12,49" fill="none" stroke="#222" stroke-width="1.2"/><path d="M0,7 C28,26 28,30 0,49 L36,49 C76,49 106,29 36,7 Z" fill="#fff" stroke="#222" stroke-width="1.8"/></g>
-        <g id="gate-not"><path d="M0,6 L44,28 L0,50 Z" fill="#fff" stroke="#222" stroke-width="1.8"/><circle cx="54" cy="28" r="6" fill="#fff" stroke="#222" stroke-width="1.8"/></g>
-        <g id="gate-nand"><rect x="0" y="0" width="90" height="56" rx="8" fill="#fff" stroke="#222" stroke-width="1.8"/><path d="M44,0 a44,28 0 0,1 0,56" fill="#fff" stroke="#222" stroke-width="1.8"/><circle cx="110" cy="28" r="6" fill="#fff" stroke="#222" stroke-width="1.8"/></g>
-        <g id="gate-nor"><path d="M0,7 C28,26 28,30 0,49 L36,49 C76,49 106,29 36,7 Z" fill="#fff" stroke="#222" stroke-width="1.8"/><path d="M-10,7 C18,26 18,30 -10,49" fill="none" stroke="#222" stroke-width="1.1"/><circle cx="116" cy="28" r="6" fill="#fff" stroke="#222" stroke-width="1.8"/></g>
-      </defs>
-    </svg>
-
-    <!-- Question 1: question visible, markscheme hidden -->
+    <!-- -----------------------------------------------------
+         QUESTION 1
+         Placeholder will show the filename to upload: images/q1.png
+         ----------------------------------------------------- -->
     <section class="qcard" id="q1">
       <h2 class="qtitle">Question 1</h2>
+
       <div class="qtext">
 <pre style="white-space:pre-wrap">
 Consider this logic circuit.
@@ -79,50 +80,20 @@ X =
 </pre>
       </div>
 
-      <div class="diagram-wrap" aria-hidden="false">
-        <!-- Wider canvas and spaced gate positions to prevent squashing -->
-        <svg class="logic-diagram" viewBox="0 0 1000 160" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Q1 diagram">
-          <!-- labels + rails -->
-          <text x="10" y="24" font-size="12">A</text>
-          <line x1="34" y1="22" x2="220" y2="22" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-          <text x="10" y="54" font-size="12">B</text>
-          <line x1="34" y1="52" x2="220" y2="52" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-          <text x="10" y="84" font-size="12">C</text>
-          <line x1="34" y1="82" x2="220" y2="82" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-
-          <!-- NOT A -->
-          <g transform="translate(220,6)">
-            <use href="#gate-not"></use>
-            <line x1="62" y1="28" x2="350" y2="28" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-          </g>
-
-          <!-- AND combining NOT A + B -->
-          <!-- B feeds up to AND with small offset -->
-          <line x1="220" y1="52" x2="280" y2="40" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-          <g transform="translate(300,24)">
-            <use href="#gate-and"></use>
-            <line x1="96" y1="28" x2="480" y2="28" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-          </g>
-
-          <!-- NOT C -->
-          <g transform="translate(220,92)">
-            <use href="#gate-not"></use>
-            <line x1="62" y1="28" x2="480" y2="28" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-          </g>
-
-          <!-- OR to combine AND output and NOT C -->
-          <line x1="480" y1="28" x2="540" y2="28" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-          <line x1="480" y1="28" x2="540" y2="48" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-          <g transform="translate(540,16)"><use href="#gate-or"></use></g>
-          <line x1="640" y1="32" x2="960" y2="32" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-          <text x="940" y="38" font-size="13">X</text>
-        </svg>
+      <div class="diagram-container" aria-hidden="false">
+        <!-- Image: put your diagram file at images/q1.png -->
+        <img class="diagram" src="images/q1.png" alt="Diagram for Question 1 (replace images/q1.png)" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <div class="placeholder" role="img" aria-label="Placeholder for images/q1.png">
+          <strong>Insert diagram file:</strong>
+          Filename: <code>images/q1.png</code><br>
+          Recommended: PNG or SVG, approx. 800×200–1200×300 px for clarity. Upload this file to the folder <code>images/</code> in your repo.
+        </div>
       </div>
 
       <button class="ms-toggle" aria-controls="ms1" aria-expanded="false">Show markscheme</button>
       <div id="ms1" class="ms-panel" aria-hidden="true">
         <div class="ms-content">
-          <!-- Verbatim markscheme -->
+          <!-- Verbatim markscheme from your Answer booklet -->
           <b>Answer (a) (4 marks)</b>
           <pre class="logic">X = (NOT A AND B) OR NOT C</pre>
           <p>(One mark each for: NOT A, AND B, NOT C, OR)</p>
@@ -145,9 +116,12 @@ X =
       </div>
     </section>
 
-    <!-- Question 2 -->
+    <!-- -----------------------------------------------------
+         QUESTION 2  -> placeholder: images/q2.png
+         ----------------------------------------------------- -->
     <section class="qcard" id="q2">
       <h2 class="qtitle">Question 2</h2>
+
       <div class="qtext">
 <pre style="white-space:pre-wrap">
 Consider the logic expression:
@@ -161,35 +135,13 @@ Do not simplify this logic expression.
 </pre>
       </div>
 
-      <div class="diagram-wrap">
-        <svg class="logic-diagram" viewBox="0 0 1040 160" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Q2 diagram">
-          <text x="10" y="24" font-size="12">A</text>
-          <line x1="34" y1="22" x2="220" y2="22" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-          <text x="10" y="54" font-size="12">B</text>
-          <line x1="34" y1="52" x2="220" y2="52" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-          <text x="10" y="84" font-size="12">C</text>
-          <line x1="34" y1="82" x2="220" y2="82" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-
-          <!-- NAND A,B -->
-          <g transform="translate(220,6)"><use href="#gate-nand"></use></g>
-          <line x1="310" y1="34" x2="520" y2="34" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-
-          <!-- XOR B,C -->
-          <line x1="220" y1="52" x2="420" y2="34" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-          <line x1="220" y1="82" x2="420" y2="54" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-          <g transform="translate(420,8)"><use href="#gate-xor"></use></g>
-          <line x1="506" y1="34" x2="660" y2="34" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-
-          <!-- NOT after XOR -->
-          <g transform="translate(660,8)"><use href="#gate-not"></use></g>
-          <line x1="724" y1="34" x2="820" y2="34" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-
-          <!-- OR combining -->
-          <line x1="520" y1="34" x2="820" y2="34" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-          <g transform="translate(820,16)"><use href="#gate-or"></use></g>
-          <line x1="920" y1="36" x2="980" y2="36" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-          <text x="968" y="42" font-size="13">Z</text>
-        </svg>
+      <div class="diagram-container">
+        <img class="diagram" src="images/q2.png" alt="Diagram for Question 2 (replace images/q2.png)" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <div class="placeholder">
+          <strong>Insert diagram file:</strong>
+          Filename: <code>images/q2.png</code><br>
+          Recommended: PNG or SVG, approx. 800×200–1200×300 px.
+        </div>
       </div>
 
       <button class="ms-toggle" aria-controls="ms2" aria-expanded="false">Show markscheme</button>
@@ -216,9 +168,12 @@ Do not simplify this logic expression.
       </div>
     </section>
 
-    <!-- Question 3 -->
+    <!-- -----------------------------------------------------
+         QUESTION 3  -> images/q3.png
+         ----------------------------------------------------- -->
     <section class="qcard" id="q3">
       <h2 class="qtitle">Question 3</h2>
+
       <div class="qtext">
 <pre style="white-space:pre-wrap">
 Consider this logic circuit.
@@ -230,25 +185,12 @@ X =
 </pre>
       </div>
 
-      <div class="diagram-wrap">
-        <svg class="logic-diagram" viewBox="0 0 940 160" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Q3 diagram">
-          <text x="10" y="24" font-size="12">A</text>
-          <line x1="34" y1="22" x2="260" y2="22" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-          <text x="10" y="54" font-size="12">B</text>
-          <line x1="34" y1="52" x2="260" y2="52" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-          <text x="10" y="84" font-size="12">C</text>
-          <line x1="34" y1="82" x2="540" y2="82" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-
-          <g transform="translate(260,8)"><use href="#gate-xor"></use></g>
-          <line x1="350" y1="34" x2="540" y2="34" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-
-          <g transform="translate(540,16)"><use href="#gate-and"></use></g>
-          <line x1="636" y1="44" x2="900" y2="44" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-          <text x="880" y="50" font-size="13">X</text>
-
-          <!-- C to AND -->
-          <line x1="540" y1="82" x2="540" y2="48" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-        </svg>
+      <div class="diagram-container">
+        <img class="diagram" src="images/q3.png" alt="Diagram for Question 3 (replace images/q3.png)" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <div class="placeholder">
+          <strong>Insert diagram file:</strong>
+          Filename: <code>images/q3.png</code>
+        </div>
       </div>
 
       <button class="ms-toggle" aria-controls="ms3" aria-expanded="false">Show markscheme</button>
@@ -275,9 +217,12 @@ X =
       </div>
     </section>
 
-    <!-- Question 4 -->
+    <!-- -----------------------------------------------------
+         QUESTION 4  -> images/q4.png
+         ----------------------------------------------------- -->
     <section class="qcard" id="q4">
       <h2 class="qtitle">Question 4</h2>
+
       <div class="qtext">
 <pre style="white-space:pre-wrap">
 Consider this logic expression.
@@ -290,39 +235,18 @@ inputs. Do not simplify this logic expression.
 </pre>
       </div>
 
-      <div class="diagram-wrap">
-        <svg class="logic-diagram" viewBox="0 0 980 180" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Q4 diagram">
-          <text x="10" y="24" font-size="12">A</text>
-          <line x1="34" y1="22" x2="200" y2="22" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-          <text x="10" y="54" font-size="12">B</text>
-          <line x1="34" y1="52" x2="200" y2="52" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-          <text x="10" y="84" font-size="12">C</text>
-          <line x1="34" y1="82" x2="520" y2="82" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-
-          <!-- OR (A OR B) -->
-          <g transform="translate(200,8)"><use href="#gate-or"></use></g>
-          <line x1="258" y1="36" x2="420" y2="36" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-
-          <!-- NOT B -->
-          <g transform="translate(200,72)"><use href="#gate-not"></use></g>
-          <line x1="246" y1="96" x2="420" y2="52" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-
-          <!-- OR (NOT B OR C) -->
-          <line x1="520" y1="82" x2="420" y2="52" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-          <g transform="translate(420,36)"><use href="#gate-or"></use></g>
-          <line x1="476" y1="60" x2="620" y2="60" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-
-          <!-- AND final -->
-          <g transform="translate(620,44)"><use href="#gate-and"></use></g>
-          <line x1="716" y1="66" x2="920" y2="66" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-          <text x="900" y="72" font-size="13">X</text>
-        </svg>
+      <div class="diagram-container">
+        <img class="diagram" src="images/q4.png" alt="Diagram for Question 4 (replace images/q4.png)" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <div class="placeholder">
+          <strong>Insert diagram file:</strong>
+          Filename: <code>images/q4.png</code>
+        </div>
       </div>
 
       <button class="ms-toggle" aria-controls="ms4" aria-expanded="false">Show markscheme</button>
       <div id="ms4" class="ms-panel" aria-hidden="true">
         <div class="ms-content">
-          <p><i>(Mark scheme shows the correct logic circuit diagram with OR, NOT, OR and AND gates.)</i></p>
+          <p><i>(Mark scheme shows the correct logic circuit diagram with OR, NOT, OR, and AND gates.)</i></p>
           <div class="table-wrap">
             <table>
               <tr><th>A</th><th>B</th><th>C</th><th>X</th></tr>
@@ -340,9 +264,12 @@ inputs. Do not simplify this logic expression.
       </div>
     </section>
 
-    <!-- Question 5 -->
+    <!-- -----------------------------------------------------
+         QUESTION 5  -> images/q5.png
+         ----------------------------------------------------- -->
     <section class="qcard" id="q5">
       <h2 class="qtitle">Question 5</h2>
+
       <div class="qtext">
 <pre style="white-space:pre-wrap">
 Consider this logic circuit.
@@ -354,31 +281,12 @@ X =
 </pre>
       </div>
 
-      <div class="diagram-wrap">
-        <svg class="logic-diagram" viewBox="0 0 980 160" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Q5 diagram">
-          <text x="10" y="24" font-size="12">A</text>
-          <line x1="34" y1="22" x2="200" y2="22" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-          <text x="10" y="54" font-size="12">B</text>
-          <line x1="34" y1="52" x2="200" y2="52" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-          <text x="10" y="84" font-size="12">C</text>
-          <line x1="34" y1="82" x2="520" y2="82" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-
-          <!-- NOR A,B -->
-          <g transform="translate(200,8)"><use href="#gate-nor"></use></g>
-          <line x1="298" y1="36" x2="460" y2="36" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-
-          <!-- AND B,C -->
-          <line x1="200" y1="52" x2="420" y2="38" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-          <line x1="520" y1="82" x2="460" y2="46" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-          <g transform="translate(460,28)"><use href="#gate-and"></use></g>
-          <line x1="556" y1="46" x2="640" y2="46" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-
-          <!-- OR combine -->
-          <line x1="460" y1="36" x2="640" y2="36" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-          <g transform="translate(640,24)"><use href="#gate-or"></use></g>
-          <line x1="720" y1="44" x2="920" y2="44" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-          <text x="900" y="50" font-size="13">X</text>
-        </svg>
+      <div class="diagram-container">
+        <img class="diagram" src="images/q5.png" alt="Diagram for Question 5 (replace images/q5.png)" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <div class="placeholder">
+          <strong>Insert diagram file:</strong>
+          Filename: <code>images/q5.png</code>
+        </div>
       </div>
 
       <button class="ms-toggle" aria-controls="ms5" aria-expanded="false">Show markscheme</button>
@@ -405,9 +313,12 @@ X =
       </div>
     </section>
 
-    <!-- Question 6 -->
+    <!-- -----------------------------------------------------
+         QUESTION 6  -> images/q6.png
+         ----------------------------------------------------- -->
     <section class="qcard" id="q6">
       <h2 class="qtitle">Question 6</h2>
+
       <div class="qtext">
 <pre style="white-space:pre-wrap">
 Consider this logic circuit.
@@ -417,27 +328,12 @@ Consider this logic circuit.
 </pre>
       </div>
 
-      <div class="diagram-wrap">
-        <svg class="logic-diagram" viewBox="0 0 980 160" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Q6 diagram">
-          <text x="10" y="24" font-size="12">A</text>
-          <line x1="34" y1="22" x2="200" y2="22" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-          <text x="10" y="54" font-size="12">B</text>
-          <line x1="34" y1="52" x2="200" y2="52" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-          <text x="10" y="84" font-size="12">C</text>
-          <line x1="34" y1="82" x2="360" y2="82" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-
-          <g transform="translate(200,8)"><use href="#gate-or"></use></g>
-          <line x1="276" y1="36" x2="520" y2="36" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-
-          <line x1="200" y1="52" x2="320" y2="36" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-          <line x1="360" y1="82" x2="320" y2="56" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-          <g transform="translate(320,8)"><use href="#gate-xor"></use></g>
-          <line x1="404" y1="36" x2="520" y2="36" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-
-          <g transform="translate(520,24)"><use href="#gate-and"></use></g>
-          <line x1="616" y1="56" x2="920" y2="56" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-          <text x="900" y="62" font-size="13">X</text>
-        </svg>
+      <div class="diagram-container">
+        <img class="diagram" src="images/q6.png" alt="Diagram for Question 6 (replace images/q6.png)" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <div class="placeholder">
+          <strong>Insert diagram file:</strong>
+          Filename: <code>images/q6.png</code>
+        </div>
       </div>
 
       <button class="ms-toggle" aria-controls="ms6" aria-expanded="false">Show markscheme</button>
@@ -463,9 +359,12 @@ Consider this logic circuit.
       </div>
     </section>
 
-    <!-- Question 9 -->
+    <!-- -----------------------------------------------------
+         QUESTION 9  -> images/q9.png
+         ----------------------------------------------------- -->
     <section class="qcard" id="q9">
       <h2 class="qtitle">Question 9</h2>
+
       <div class="qtext">
 <pre style="white-space:pre-wrap">
 (Mapped from QbT Q9 to AbT Q9)
@@ -479,29 +378,12 @@ inputs. Do not simplify this logic expression.
 </pre>
       </div>
 
-      <div class="diagram-wrap">
-        <svg class="logic-diagram" viewBox="0 0 980 160" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Q9 diagram">
-          <text x="10" y="24" font-size="12">A</text>
-          <line x1="34" y1="22" x2="200" y2="22" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-          <text x="10" y="54" font-size="12">B</text>
-          <line x1="34" y1="52" x2="200" y2="52" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-          <text x="10" y="84" font-size="12">C</text>
-          <line x1="34" y1="82" x2="420" y2="82" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-
-          <g transform="translate(200,8)"><use href="#gate-xor"></use></g>
-          <line x1="284" y1="36" x2="420" y2="36" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-
-          <line x1="200" y1="52" x2="420" y2="46" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-          <line x1="420" y1="82" x2="420" y2="56" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-          <g transform="translate(420,36)"><use href="#gate-and"></use></g>
-
-          <line x1="516" y1="56" x2="640" y2="56" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-          <line x1="520" y1="36" x2="640" y2="36" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-
-          <g transform="translate(640,24)"><use href="#gate-or"></use></g>
-          <line x1="720" y1="44" x2="920" y2="44" stroke="#222" stroke-width="2" stroke-linecap="round"/>
-          <text x="900" y="50" font-size="13">X</text>
-        </svg>
+      <div class="diagram-container">
+        <img class="diagram" src="images/q9.png" alt="Diagram for Question 9 (replace images/q9.png)" onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+        <div class="placeholder">
+          <strong>Insert diagram file:</strong>
+          Filename: <code>images/q9.png</code>
+        </div>
       </div>
 
       <button class="ms-toggle" aria-controls="ms9" aria-expanded="false">Show markscheme</button>
@@ -531,7 +413,7 @@ inputs. Do not simplify this logic expression.
 (function(){
   // Toggle markscheme panels — each question has its own toggle button
   const toggles = Array.from(document.querySelectorAll('.ms-toggle'));
-  toggles.forEach((btn, idx) => {
+  toggles.forEach((btn) => {
     const panel = document.getElementById(btn.getAttribute('aria-controls'));
     btn.addEventListener('click', () => {
       const open = panel.classList.contains('ms-open');
